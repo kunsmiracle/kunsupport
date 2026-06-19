@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>那一刻心动 ・ Pre-Release Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0c0a10;
+    --panel: #15121a;
+    --panel-line: #2a2430;
+    --gold: #c9a45c;
+    --gold-soft: #8d7440;
+    --cream: #f1e9da;
+    --muted: #8d8593;
+    --rose: #6b3140;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--cream); font-family:'Zen Kaku Gothic New', sans-serif;}
+  body{
+    background:
+      radial-gradient(ellipse 700px 400px at 50% -10%, rgba(201,164,92,0.10), transparent 60%),
+      var(--bg);
+    min-height:100vh;
+    padding-bottom:80px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:56px 24px 36px;
+    text-align:center;
+    border-bottom:1px solid var(--panel-line);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, transparent 0%, var(--bg) 100%),
+      repeating-linear-gradient(115deg, rgba(201,164,92,0.05) 0px, rgba(201,164,92,0.05) 1px, transparent 1px, transparent 64px);
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    position:relative;
+    font-family:'Cormorant Garamond', serif;
+    letter-spacing:0.35em;
+    font-size:11px;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin-bottom:16px;
+  }
+  .hero-title{
+    position:relative;
+    font-family:'Noto Serif SC', serif;
+    font-weight:700;
+    font-size:clamp(30px, 8vw, 46px);
+    line-height:1.25;
+    margin:0 0 8px;
+    color:var(--cream);
+    letter-spacing:0.04em;
+  }
+  .hero-title em{
+    font-style:normal;
+    color:var(--gold);
+  }
+  .hero-sub{
+    position:relative;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--muted);
+    letter-spacing:0.04em;
+    margin-bottom:30px;
+  }
+
+  /* ---------- Countdown ---------- */
+  .countdown{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+  .countdown-unit{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-top:2px solid var(--gold);
+    border-radius:3px;
+    padding:14px 14px 10px;
+    min-width:68px;
+    text-align:center;
+  }
+  .countdown-num{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:clamp(26px, 7vw, 34px);
+    color:var(--gold);
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+  }
+  .countdown-label{
+    margin-top:6px;
+    font-size:9.5px;
+    letter-spacing:0.15em;
+    color:var(--muted);
+    text-transform:uppercase;
+  }
+  .countdown-colon{
+    align-self:center;
+    color:var(--gold-soft);
+    font-family:'Cormorant Garamond', serif;
+    font-size:24px;
+    margin-top:-10px;
+  }
+  .release-line{
+    position:relative;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:0.04em;
+  }
+  .release-line strong{ color:var(--gold); font-weight:500; }
+  .release-done{
+    position:relative;
+    font-family:'Noto Serif SC', serif;
+    font-weight:700;
+    font-size:22px;
+    color:var(--gold);
+    letter-spacing:0.06em;
+    margin-bottom:10px;
+    display:none;
+  }
+
+  /* ---------- Layout ---------- */
+  .wrap{max-width:640px; margin:0 auto; padding:0 18px;}
+  .section-block{margin-top:42px;}
+  .section-head{
+    display:flex; align-items:baseline; gap:12px;
+    margin-bottom:14px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--panel-line);
+  }
+  .section-mark{
+    font-family:'Cormorant Garamond', serif;
+    font-size:13px;
+    color:var(--gold);
+    letter-spacing:0.18em;
+    white-space:nowrap;
+  }
+  .section-title{
+    font-family:'Noto Serif SC', serif;
+    font-weight:600;
+    font-size:19px;
+    color:var(--cream);
+    letter-spacing:0.02em;
+  }
+  .section-title small{
+    display:block;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:12px;
+    color:var(--muted);
+    margin-top:2px;
+    letter-spacing:0.06em;
+  }
+
+  /* ---------- Cards (accordion) ---------- */
+  .card{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:2px;
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+  .card-head{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px;
+    padding:16px 18px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .card-head-text{display:flex; flex-direction:column; gap:3px;}
+  .card-num{
+    font-family:'Cormorant Garamond', serif;
+    color:var(--gold-soft);
+    font-size:12px;
+    letter-spacing:0.1em;
+  }
+  .card-title{
+    font-size:15px;
+    font-weight:500;
+    color:var(--cream);
+  }
+  .card-chevron{
+    width:9px; height:9px;
+    border-right:1px solid var(--gold);
+    border-bottom:1px solid var(--gold);
+    transform:rotate(-45deg);
+    transition:transform 0.25s ease;
+    flex-shrink:0;
+  }
+  .card.open .card-chevron{ transform:rotate(45deg); }
+  .card-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease;
+  }
+  .card-body-inner{
+    padding:0 18px 18px;
+    font-size:14px;
+    line-height:1.85;
+    color:#d8cfc0;
+  }
+  .card-body-inner p{margin:0 0 10px;}
+  .card-body-inner .path{
+    color:var(--gold);
+    font-weight:500;
+  }
+  .card-body-inner ul{margin:8px 0 0; padding-left:0; list-style:none;}
+  .card-body-inner li{
+    position:relative;
+    padding-left:18px;
+    margin-bottom:7px;
+  }
+  .card-body-inner li::before{
+    content:"—";
+    position:absolute; left:0; color:var(--gold-soft);
+  }
+  .flow{
+    display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+    margin-top:10px;
+    font-size:13px;
+  }
+  .flow span{
+    background:rgba(201,164,92,0.08);
+    border:1px solid var(--panel-line);
+    padding:5px 10px;
+    border-radius:3px;
+    color:var(--cream);
+  }
+  .flow i{ color:var(--gold-soft); font-style:normal; }
+  .note{
+    margin-top:12px;
+    padding:10px 12px;
+    border-left:2px solid var(--rose);
+    background:rgba(107,49,64,0.15);
+    font-size:12.5px;
+    color:#cdb8bc;
+    line-height:1.7;
+  }
+
+  /* ---------- Setup checklist ---------- */
+  .setup-group{margin-bottom:16px;}
+  .setup-item{
+    display:flex; align-items:center; gap:10px;
+    padding:9px 0;
+    font-size:14px;
+    color:#d8cfc0;
+    border-bottom:1px dashed var(--panel-line);
+  }
+  .setup-item:last-child{border-bottom:none;}
+  .setup-dot{
+    width:5px; height:5px; border-radius:50%;
+    background:var(--gold); flex-shrink:0;
+  }
+
+  /* ---------- Tasks ---------- */
+  .task{
+    display:flex; align-items:flex-start; gap:12px;
+    padding:16px 18px;
+    border-bottom:1px solid var(--panel-line);
+  }
+  .task:last-child{border-bottom:none;}
+  .task-check{
+    width:20px; height:20px;
+    border:1px solid var(--gold-soft);
+    border-radius:50%;
+    flex-shrink:0;
+    margin-top:2px;
+    cursor:pointer;
+    position:relative;
+    transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  .task-check.checked{
+    background:var(--gold);
+    border-color:var(--gold);
+  }
+  .task-check.checked::after{
+    content:"";
+    position:absolute; left:6px; top:3px;
+    width:5px; height:9px;
+    border:solid var(--bg);
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+  .task-main{flex:1;}
+  .task-top{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .task-title{font-size:14.5px; font-weight:500; color:var(--cream);}
+  .task-title.checked-text{ color:var(--muted); text-decoration:line-through; text-decoration-color:var(--gold-soft); }
+  .task-freq{
+    font-size:10px;
+    letter-spacing:0.06em;
+    color:var(--gold-soft);
+    border:1px solid var(--panel-line);
+    padding:1px 7px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .task-desc{
+    margin-top:5px;
+    font-size:12.5px;
+    color:var(--muted);
+    line-height:1.7;
+  }
+  .search-pill{
+    display:inline-block;
+    margin-top:6px;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--gold);
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- Footer ---------- */
+  .footer{
+    margin-top:56px;
+    padding:28px 18px 0;
+    text-align:center;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--muted);
+    letter-spacing:0.04em;
+  }
+  .footer-mark{
+    color:var(--gold);
+    font-size:18px;
+    margin-bottom:8px;
+    letter-spacing:0.3em;
+  }
+
+  .reset-bar{
+    max-width:640px; margin:36px auto 0; padding:0 18px;
+    display:flex; justify-content:flex-end;
+  }
+  .reset-btn{
+    background:transparent;
+    border:1px solid var(--panel-line);
+    color:var(--muted);
+    font-size:11px;
+    letter-spacing:0.08em;
+    padding:7px 14px;
+    border-radius:20px;
+    cursor:pointer;
+  }
+  .reset-btn:hover{ border-color:var(--gold-soft); color:var(--gold); }
+
+  /* ---------- Open-link button (static) ---------- */
+  .open-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:12px;
+    font-size:12px;
+    letter-spacing:0.05em;
+    color:var(--gold);
+    border:1px solid var(--gold-soft);
+    padding:7px 14px;
+    border-radius:20px;
+    text-decoration:none;
+  }
+  .open-link:hover{ background:rgba(201,164,92,0.08); }
+  .quick-link-row{
+    margin:-4px 0 18px;
+  }
+
+  /* ---------- Social media groups ---------- */
+  .social-group-title{
+    padding:14px 18px 0;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--gold);
+    letter-spacing:0.04em;
+  }
+
+  /* ---------- Cover image ---------- */
+  .cover-wrap{
+    position:relative;
+    margin:0 auto 22px;
+    max-width:280px;
+  }
+  .cover-img{
+    display:none;
+    width:100%;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    border-radius:2px;
+    border:1px solid var(--panel-line);
+    box-shadow:0 18px 40px rgba(0,0,0,0.45);
+  }
+  .cover-placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    aspect-ratio:4/5;
+    border:1px dashed var(--panel-line);
+    border-radius:2px;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--muted);
+    cursor:pointer;
+  }
+  .cover-edit-btn{
+    position:absolute;
+    bottom:8px; right:8px;
+    background:rgba(12,10,16,0.75);
+    border:1px solid var(--gold-soft);
+    color:var(--gold);
+    font-size:10px;
+    letter-spacing:0.08em;
+    padding:5px 10px;
+    border-radius:20px;
+    cursor:pointer;
+    display:none;
+  }
+
+  /* ---------- Inline add-forms (image / links) ---------- */
+  .add-form{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top:10px;
+    text-align:left;
+  }
+  .add-form input{
+    background:var(--bg);
+    border:1px solid var(--panel-line);
+    color:var(--cream);
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:13px;
+    padding:9px 12px;
+    border-radius:3px;
+    outline:none;
+  }
+  .add-form input:focus{ border-color:var(--gold-soft); }
+  .add-form-row{ display:flex; gap:8px; }
+  .add-form-row input{ flex:1; min-width:0; }
+  .add-btn{
+    background:var(--gold);
+    border:none;
+    color:var(--bg);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.05em;
+    padding:9px 14px;
+    border-radius:3px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .add-btn:hover{ background:#dab66c; }
+  .add-cancel{
+    background:transparent;
+    border:1px solid var(--panel-line);
+    color:var(--muted);
+    font-size:11px;
+    padding:9px 12px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+
+  /* ---------- Links & Resources ---------- */
+  .link-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    border-bottom:1px solid var(--panel-line);
+    text-decoration:none;
+  }
+  .link-item:last-child{ border-bottom:none; }
+  .link-thumb{
+    width:40px; height:40px;
+    border-radius:3px;
+    object-fit:cover;
+    border:1px solid var(--panel-line);
+    flex-shrink:0;
+    background:var(--bg);
+  }
+  .link-thumb-fallback{
+    width:40px; height:40px;
+    border-radius:3px;
+    border:1px solid var(--panel-line);
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--gold-soft);
+    font-family:'Cormorant Garamond', serif;
+    font-size:16px;
+  }
+  .link-text{ flex:1; min-width:0; }
+  .link-title{ font-size:14px; color:var(--cream); font-weight:500; }
+  .link-url{
+    font-size:11px;
+    color:var(--muted);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    margin-top:2px;
+  }
+  .link-arrow{ color:var(--gold-soft); font-size:14px; flex-shrink:0; }
+  .link-remove{
+    color:var(--muted);
+    font-size:16px;
+    flex-shrink:0;
+    padding:4px;
+    cursor:pointer;
+  }
+  .link-remove:hover{ color:var(--rose); }
+  .link-empty{
+    padding:22px 18px;
+    text-align:center;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .add-link-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:14px;
+    color:var(--gold-soft);
+    font-size:12px;
+    letter-spacing:0.06em;
+    cursor:pointer;
+    border-top:1px solid var(--panel-line);
+  }
+  .add-link-toggle:hover{ color:var(--gold); }
+  .add-link-panel{
+    padding:16px 18px;
+    border-top:1px solid var(--panel-line);
+    display:none;
+  }
+
+  @media (max-width:380px){
+    .hero{padding:44px 16px 28px;}
+    .card-title{font-size:14px;}
+    .countdown{gap:7px;}
+    .countdown-unit{min-width:58px; padding:11px 8px 8px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="hero-eyebrow">KUN SOLO</div>
+
+    <div class="cover-wrap">
+      <img class="cover-img" id="coverImg" src="cover.jpg" alt="Cover" style="display:block;">
+    </div>
+
+    <h1 class="hero-title">那一刻心动</h1>
+    <div class="hero-sub">QIAN KUN — Streaming &amp; Support Guide</div>
+
+    <div class="release-done" id="releaseDone">— OUT NOW —</div>
+
+    <div class="countdown" id="countdown">
+      <div class="countdown-unit"><div class="countdown-num" id="cd-days">00</div><div class="countdown-label">Days</div></div>
+      <div class="countdown-colon">:</div>
+      <div class="countdown-unit"><div class="countdown-num" id="cd-hours">00</div><div class="countdown-label">Hrs</div></div>
+      <div class="countdown-colon">:</div>
+      <div class="countdown-unit"><div class="countdown-num" id="cd-mins">00</div><div class="countdown-label">Min</div></div>
+      <div class="countdown-colon">:</div>
+      <div class="countdown-unit"><div class="countdown-num" id="cd-secs">00</div><div class="countdown-label">Sec</div></div>
+    </div>
+
+    <div class="release-line">Releasing <strong>June 20, 2026 · 18:00 (China Time, UTC+8)</strong></div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- ================= PRE-RELEASE PREP ================= -->
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-mark">☁ I.</span>
+        <div class="section-title">Pre-Release Preparation
+          <small>things to finish before release</small>
+        </div>
+      </div>
+
+      <div class="quick-link-row">
+        <a class="open-link" href="https://c6.y.qq.com/base/fcgi-bin/u?__=WPPCaQHM7uz8" target="_blank" rel="noopener">QQ Music — 钱锟 Artist Page ↗</a>
+      </div>
+
+      <div class="card" data-card>
+        <div class="card-head" data-toggle>
+          <div class="card-head-text">
+            <span class="card-num">01</span>
+            <span class="card-title">YouNi Points (由你积分)</span>
+          </div>
+          <span class="card-chevron"></span>
+        </div>
+        <div class="card-body">
+          <div class="card-body-inner">
+            <div class="flow">
+              <span>Search "腾讯音乐榜" in QQ Music</span><i>→</i>
+              <span>Open the points task page (top-right)</span>
+            </div>
+            <p style="margin-top:12px;">Complete all tasks one by one. Once finished, switch to your next account and repeat the process.</p>
+            <div class="note">Tencent Music Chart is one of the most important charts for supporting the release.</div>
+            <a class="open-link" href="https://c6.y.qq.com/base/fcgi-bin/u?__=Tdp4u87M7oSX" target="_blank" rel="noopener">Open Tencent Music Chart ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-card>
+        <div class="card-head" data-toggle>
+          <div class="card-head-text">
+            <span class="card-num">02</span>
+            <span class="card-title">Song Promotion Power (推歌电量)</span>
+          </div>
+          <span class="card-chevron"></span>
+        </div>
+        <div class="card-body">
+          <div class="card-body-inner">
+            <div class="flow">
+              <span>Search "音乐推" in QQ Music</span><i>→</i>
+              <span>乐迷活动</span><i>→</i>
+              <span>星梦发电站</span><i>→</i>
+              <span>Search 钱锟 (KUN)</span><i>→</i>
+              <span class="path">Tap 发电</span>
+            </div>
+            <p style="margin-top:12px;">After completing the tasks, switch to your next account and repeat.</p>
+            <div class="note">Tasks marked with a timer will refresh 4 hours after completion.</div>
+            <a class="open-link" href="https://c6.y.qq.com/base/fcgi-bin/u?__=iRJ6YJ7M799l" target="_blank" rel="noopener">Open Song Promotion Power ↗</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card" data-card>
+        <div class="card-head" data-toggle>
+          <div class="card-head-text">
+            <span class="card-num">03</span>
+            <span class="card-title">Coin Center (金币中心)</span>
+          </div>
+          <span class="card-chevron"></span>
+        </div>
+        <div class="card-body">
+          <div class="card-body-inner">
+            <p>Earn coins that can be used to purchase the song.<br><strong style="color:var(--gold);">1 song purchase = 2 RMB ≈ 14,000 coins</strong></p>
+            <div class="flow">
+              <span>My Page</span><i>→</i>
+              <span class="path">领现金</span>
+            </div>
+            <p style="margin-top:12px;">Complete ads and available tasks to earn coins.</p>
+            <div class="note">Apple users may have difficulty making purchases, so please try to prepare at least 42,000 coins (14,000 × 3) in advance.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-card>
+        <div class="card-head" data-toggle>
+          <div class="card-head-text">
+            <span class="card-num">04</span>
+            <span class="card-title">Creating Multiple Accounts</span>
+          </div>
+          <span class="card-chevron"></span>
+        </div>
+        <div class="card-body">
+          <div class="card-body-inner">
+            <p>One phone number can register:</p>
+            <ul>
+              <li>2 WeChat accounts</li>
+              <li>5 QQ accounts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= OTHER STREAMING PLATFORMS ================= -->
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-mark">☁ II.</span>
+        <div class="section-title">Other Streaming Platforms
+          <small>support across platforms</small>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="social-group-title">Kugou Music (酷狗音乐)</div>
+        <a class="link-item" href="https://t1.kugou.com/c/lPAqNOjtP2k-" target="_blank" rel="noopener">
+          <div class="link-text"><div class="link-title">Open Reservation / Streaming Page</div><div class="link-url">t1.kugou.com/c/lPAqNOjtP2k-</div></div>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+
+      <div class="card">
+        <div class="social-group-title">Kuwo Music (酷我音乐)</div>
+        <a class="link-item" href="https://h5app.kuwo.cn/m/songReservation/details.html?id=719&kwflag=2908865376_1781876701" target="_blank" rel="noopener">
+          <div class="link-text"><div class="link-title">Open Reservation / Streaming Page</div><div class="link-url">h5app.kuwo.cn/m/songReservation</div></div>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ================= SETTINGS ================= -->
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-mark">☁ III.</span>
+        <div class="section-title">Settings Before Release
+          <small>device &amp; app setup</small>
+        </div>
+      </div>
+
+      <div class="card open" data-card>
+        <div class="card-head" data-toggle>
+          <div class="card-head-text">
+            <span class="card-num">①</span>
+            <span class="card-title">Clean-Up Steps</span>
+          </div>
+          <span class="card-chevron"></span>
+        </div>
+        <div class="card-body">
+          <div class="card-body-inner">
+            <div class="setup-group">
+              <div class="setup-item"><span class="setup-dot"></span>Free up device storage</div>
+              <div class="setup-item"><span class="setup-dot"></span>Delete all downloaded songs from your device</div>
+              <div class="setup-item"><span class="setup-dot"></span>Clear all existing playlists</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card open" data-card>
+        <div class="card-head" data-toggle>
+          <div class="card-head-text">
+            <span class="card-num">②</span>
+            <span class="card-title">Playback Settings</span>
+          </div>
+          <span class="card-chevron"></span>
+        </div>
+        <div class="card-body">
+          <div class="card-body-inner">
+            <div class="setup-group">
+              <div class="setup-item"><span class="setup-dot"></span>Turn on "允许多应用同时播放"</div>
+              <div class="setup-item"><span class="setup-dot"></span>Turn off "边听边缓存"</div>
+              <div class="setup-item"><span class="setup-dot"></span>Set "缓存上限" to "不缓存"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= STREAMING GUIDE ================= -->
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-mark">☁ IV.</span>
+        <div class="section-title">Streaming Guide
+          <small>daily task checklist</small>
+        </div>
+      </div>
+
+      <div class="card">
+        <div id="taskList"></div>
+      </div>
+
+      <div class="reset-bar">
+        <button class="reset-btn" id="resetBtn">CLEAR TODAY'S CHECKS</button>
+      </div>
+    </div>
+
+    <!-- ================= SOCIAL MEDIA ================= -->
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-mark">☁ V.</span>
+        <div class="section-title">Social Media
+          <small>official QIAN KUN accounts</small>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="social-group-title">QIAN KUN</div>
+        <a class="link-item" href="https://weibo.com/u/6988800170" target="_blank" rel="noopener">
+          <div class="link-text"><div class="link-title">Weibo</div><div class="link-url">weibo.com/u/6988800170</div></div>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link-item" href="https://xhslink.com/m/9jKG33CauIF" target="_blank" rel="noopener">
+          <div class="link-text"><div class="link-title">Red Note (Xiaohongshu)</div><div class="link-url">xhslink.com/m/9jKG33CauIF</div></div>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link-item" href="https://v.douyin.com/vF_OcDFxvx4/" target="_blank" rel="noopener">
+          <div class="link-text"><div class="link-title">Douyin</div><div class="link-url">v.douyin.com/vF_OcDFxvx4</div></div>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link-item" href="https://b23.tv/P5p1Xjv" target="_blank" rel="noopener">
+          <div class="link-text"><div class="link-title">Bilibili</div><div class="link-url">b23.tv/P5p1Xjv</div></div>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link-item" href="https://www.instagram.com/kun11xd?igsh=Z2xqd3lwMjRlcG12" target="_blank" rel="noopener">
+          <div class="link-text"><div class="link-title">Instagram</div><div class="link-url">instagram.com/kun11xd</div></div>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+
+      <div class="card">
+        <div class="social-group-title">QIAN KUN Studio</div>
+        <a class="link-item" href="https://weibo.com/u/9010792885" target="_blank" rel="noopener">
+          <div class="link-text"><div class="link-title">Weibo</div><div class="link-url">weibo.com/u/9010792885</div></div>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+
+      <div class="card">
+        <div class="social-group-title">QIAN KUN Studio Assistant</div>
+        <a class="link-item" href="https://weibo.com/u/2569004204" target="_blank" rel="noopener">
+          <div class="link-text"><div class="link-title">Weibo</div><div class="link-url">weibo.com/u/2569004204</div></div>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  // ---------- countdown ----------
+  // Release: 2026-06-20 18:00 China Standard Time (UTC+8)
+  const releaseTime = new Date("2026-06-20T18:00:00+08:00").getTime();
+
+  function tickCountdown(){
+    const now = Date.now();
+    const diff = releaseTime - now;
+
+    if(diff <= 0){
+      document.getElementById('countdown').style.display = 'none';
+      document.getElementById('releaseDone').style.display = 'block';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const mins = Math.floor((diff / (1000*60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+  }
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  // ---------- accordion ----------
+  document.querySelectorAll('[data-toggle]').forEach(head => {
+    head.addEventListener('click', () => {
+      const card = head.closest('[data-card]');
+      const body = card.querySelector('.card-body');
+      const isOpen = card.classList.contains('open');
+      if(isOpen){
+        body.style.maxHeight = body.scrollHeight + 'px';
+        requestAnimationFrame(()=>{ body.style.maxHeight = '0px'; });
+        card.classList.remove('open');
+      } else {
+        card.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+        setTimeout(()=>{ if(card.classList.contains('open')) body.style.maxHeight = 'none'; }, 300);
+      }
+    });
+  });
+  document.querySelectorAll('.card.open .card-body').forEach(b => { b.style.maxHeight = 'none'; });
+
+  // ---------- streaming tasks ----------
+  const tasks = [
+    {
+      title: 'Manual Search',
+      freq: 'Daily',
+      desc: 'Search manually at different times throughout the day.',
+      search: '钱锟 + 那一刻心动'
+    },
+    {
+      title: 'Full Playback ×10',
+      freq: 'Daily',
+      desc: 'Do not mute the audio. Do not use single-song repeat. For the New Song Chart, only one full play per account per hour is counted.'
+    },
+    {
+      title: 'Add to Favorites',
+      freq: 'Once per account'
+    },
+    {
+      title: 'Purchase the Song',
+      freq: 'Daily, if possible',
+      desc: 'Both main and secondary accounts can purchase multiple times. Purchases also increase support points for the Super Topic community.'
+    },
+    {
+      title: 'Download',
+      freq: 'Once per account',
+      desc: 'After downloading, you may delete the local file immediately.'
+    },
+    {
+      title: 'Comment',
+      freq: 'Daily'
+    },
+    {
+      title: 'Share',
+      freq: 'Daily'
+    },
+    {
+      title: 'YouNi Chart Recommendation (由你榜推荐)',
+      freq: 'Daily',
+      desc: "QQ Music's chart recommendation feature."
+    },
+    {
+      title: 'Song Boosting (推歌加热)',
+      freq: 'Daily'
+    },
+  ];
+
+  let checkedState = {};
+
+  function renderTasks(){
+    const list = document.getElementById('taskList');
+    list.innerHTML = '';
+    tasks.forEach((t, i) => {
+      const row = document.createElement('div');
+      row.className = 'task';
+      const isChecked = !!checkedState[i];
+      row.innerHTML = `
+        <div class="task-check ${isChecked ? 'checked' : ''}" data-idx="${i}"></div>
+        <div class="task-main">
+          <div class="task-top">
+            <span class="task-title ${isChecked ? 'checked-text' : ''}">${t.title}</span>
+            <span class="task-freq">${t.freq}</span>
+          </div>
+          ${t.desc ? `<div class="task-desc">${t.desc}</div>` : ''}
+          ${t.search ? `<div class="search-pill">"${t.search}"</div>` : ''}
+        </div>
+      `;
+      list.appendChild(row);
+    });
+
+    list.querySelectorAll('.task-check').forEach(box => {
+      box.addEventListener('click', () => {
+        const idx = box.dataset.idx;
+        checkedState[idx] = !checkedState[idx];
+        renderTasks();
+      });
+    });
+  }
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    checkedState = {};
+    renderTasks();
+  });
+
+  renderTasks();
+</script>
+
+</body>
+</html>
