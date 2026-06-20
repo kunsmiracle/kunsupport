@@ -1265,7 +1265,7 @@
             <span class="task-freq">${freqT}</span>
           </div>
           ${taskT.desc ? `<div class="task-desc">${taskT.desc}</div>` : ''}
-          ${td.hasSearch ? `<div class="search-pill">"${t.searchTerm || ''}"</div>` : ''}
+          ${td.hasSearch ? `<div class="search-pill">"${t.searchTerm || ''}"</div><img src="manual-search-steps.png" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}
         </div>
       `;
       list.appendChild(row);
