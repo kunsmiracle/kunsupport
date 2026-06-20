@@ -609,6 +609,274 @@
   .lang-option:hover { background: rgba(201,164,92,0.08); }
   .lang-option.active { color: var(--gold); }
   .lang-flag { font-size: 16px; }
+
+  /* ========== Sidebar Layout ========== */
+  body {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .main-content {
+    flex: 1;
+    min-width: 0;
+    max-width: 100%;
+  }
+  /* Sidebar */
+  .lyrics-sidebar {
+    width: 300px;
+    min-width: 280px;
+    max-width: 320px;
+    flex-shrink: 0;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background: var(--panel);
+    border-left: 1px solid var(--panel-line);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: width 0.3s ease, min-width 0.3s ease;
+    z-index: 100;
+  }
+  .lyrics-sidebar.collapsed {
+    width: 36px;
+    min-width: 36px;
+  }
+  .sidebar-toggle {
+    position: absolute;
+    left: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 48px;
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-soft);
+    font-size: 10px;
+    z-index: 10;
+    transition: color 0.2s;
+  }
+  .sidebar-toggle:hover { color: var(--gold); }
+  .sidebar-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+  .lyrics-sidebar.collapsed .sidebar-inner {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .sidebar-head {
+    padding: 16px 18px 12px;
+    border-bottom: 1px solid var(--panel-line);
+    flex-shrink: 0;
+  }
+  .sidebar-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .sidebar-subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .lyrics-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 18px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--panel-line) transparent;
+  }
+  .lyrics-body::-webkit-scrollbar { width: 4px; }
+  .lyrics-body::-webkit-scrollbar-thumb { background: var(--panel-line); border-radius: 2px; }
+  .lyrics-placeholder {
+    text-align: center;
+    padding: 40px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .lyrics-section {
+    margin-bottom: 20px;
+  }
+  .lyrics-section-label {
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .lyrics-line {
+    font-size: 13.5px;
+    color: var(--cream);
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .lyrics-translation {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-top: 4px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--panel-line);
+  }
+  .sidebar-footer {
+    padding: 12px 18px;
+    border-top: 1px solid var(--panel-line);
+    flex-shrink: 0;
+    display: flex;
+    gap: 8px;
+  }
+  .lyrics-edit-btn {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--gold-soft);
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .lyrics-edit-btn:hover { background: rgba(201,164,92,0.1); }
+  /* Edit Modal */
+  .lyrics-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .lyrics-modal-overlay.open { display: flex; }
+  .lyrics-modal {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .lyrics-modal-head {
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--panel-line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .lyrics-modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+  }
+  .lyrics-modal-close {
+    color: var(--muted);
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .lyrics-modal-close:hover { color: var(--cream); }
+  .lyrics-modal-body {
+    padding: 18px 20px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .lyrics-modal-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .lyrics-modal textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--panel-line);
+    color: var(--cream);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 13px;
+    line-height: 1.8;
+    padding: 10px 12px;
+    border-radius: 3px;
+    resize: vertical;
+    outline: none;
+    min-height: 140px;
+    box-sizing: border-box;
+  }
+  .lyrics-modal textarea:focus { border-color: var(--gold-soft); }
+  .lyrics-modal-foot {
+    padding: 14px 20px;
+    border-top: 1px solid var(--panel-line);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .lyrics-save-btn {
+    background: var(--gold);
+    border: none;
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 9px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .lyrics-save-btn:hover { background: #dab66c; }
+  .lyrics-cancel-btn {
+    background: transparent;
+    border: 1px solid var(--panel-line);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 9px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  @media (max-width: 700px) {
+    body { flex-direction: column; }
+    .lyrics-sidebar {
+      width: 100% !important;
+      min-width: 0;
+      max-width: none;
+      height: auto;
+      position: static;
+      border-left: none;
+      border-top: 1px solid var(--panel-line);
+    }
+    .lyrics-sidebar.collapsed { width: 100% !important; }
+    .sidebar-toggle { display: none; }
+    .lyrics-sidebar.collapsed .sidebar-inner { opacity: 1; pointer-events: auto; }
+    .lyrics-body { max-height: 300px; }
+  }
 </style>
 </head>
 <body>
@@ -630,6 +898,8 @@
       <div class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Spanish</div>
     </div>
   </div>
+
+  <div class="main-content">
 
   <div class="hero">
     <div class="hero-eyebrow">KUN SOLO</div>
@@ -1446,5 +1716,169 @@
   // Apply default language
   applyLang('en');
 </script>
+  </div><!-- /.main-content -->
+
+  <!-- ========== Lyrics Sidebar ========== -->
+  <aside class="lyrics-sidebar" id="lyricsSidebar">
+    <button class="sidebar-toggle" id="sidebarToggle" title="Toggle lyrics">◀</button>
+    <div class="sidebar-inner">
+      <div class="sidebar-head">
+        <div class="sidebar-title" data-i18n="sidebarTitle">Lyrics</div>
+        <div class="sidebar-subtitle" data-i18n="sidebarSub">那一刻心动</div>
+      </div>
+      <div class="lyrics-body" id="lyricsBody">
+        <div class="lyrics-placeholder" id="lyricsPlaceholder" data-i18n="lyricsPlaceholder">
+          Lyrics will appear here.<br>Click Edit to add.
+        </div>
+        <div id="lyricsContent" style="display:none;">
+          <div class="lyrics-section">
+            <div class="lyrics-section-label" data-i18n="lyricsOriginal">Original</div>
+            <div class="lyrics-line" id="lyricsOriginalText"></div>
+          </div>
+          <div class="lyrics-section" id="lyricsTranslSection" style="display:none;">
+            <div class="lyrics-section-label" data-i18n="lyricsTranslation">Translation</div>
+            <div class="lyrics-translation" id="lyricsTranslText"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-footer">
+        <button class="lyrics-edit-btn" id="lyricsEditBtn" data-i18n="lyricsEdit">✎ Edit Lyrics</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Lyrics Edit Modal -->
+  <div class="lyrics-modal-overlay" id="lyricsModalOverlay">
+    <div class="lyrics-modal">
+      <div class="lyrics-modal-head">
+        <div class="lyrics-modal-title" data-i18n="lyricsModalTitle">Edit Lyrics</div>
+        <span class="lyrics-modal-close" id="lyricsModalClose">✕</span>
+      </div>
+      <div class="lyrics-modal-body">
+        <div>
+          <div class="lyrics-modal-label" data-i18n="lyricsOriginal">Original Lyrics</div>
+          <textarea id="lyricsOriginalInput" placeholder="Paste original lyrics here..." rows="8"></textarea>
+        </div>
+        <div>
+          <div class="lyrics-modal-label" data-i18n="lyricsTranslation">Translation</div>
+          <textarea id="lyricsTranslInput" placeholder="Paste translation here (optional)..." rows="8"></textarea>
+        </div>
+      </div>
+      <div class="lyrics-modal-foot">
+        <button class="lyrics-cancel-btn" id="lyricsCancelBtn" data-i18n="lyricsCancel">Cancel</button>
+        <button class="lyrics-save-btn" id="lyricsSaveBtn" data-i18n="lyricsSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  // ========== Lyrics Sidebar ==========
+  const sidebar = document.getElementById('lyricsSidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const lyricsEditBtn = document.getElementById('lyricsEditBtn');
+  const lyricsModalOverlay = document.getElementById('lyricsModalOverlay');
+  const lyricsModalClose = document.getElementById('lyricsModalClose');
+  const lyricsCancelBtn = document.getElementById('lyricsCancelBtn');
+  const lyricsSaveBtn = document.getElementById('lyricsSaveBtn');
+  const lyricsOriginalInput = document.getElementById('lyricsOriginalInput');
+  const lyricsTranslInput = document.getElementById('lyricsTranslInput');
+  const lyricsPlaceholder = document.getElementById('lyricsPlaceholder');
+  const lyricsContent = document.getElementById('lyricsContent');
+  const lyricsOriginalText = document.getElementById('lyricsOriginalText');
+  const lyricsTranslText = document.getElementById('lyricsTranslText');
+  const lyricsTranslSection = document.getElementById('lyricsTranslSection');
+
+  // Load saved lyrics
+  let savedOriginal = localStorage.getItem('lyricsOriginal') || '';
+  let savedTransl = localStorage.getItem('lyricsTransl') || '';
+
+  function renderLyrics() {
+    if (savedOriginal.trim()) {
+      lyricsPlaceholder.style.display = 'none';
+      lyricsContent.style.display = 'block';
+      lyricsOriginalText.textContent = savedOriginal;
+      if (savedTransl.trim()) {
+        lyricsTranslSection.style.display = 'block';
+        lyricsTranslText.textContent = savedTransl;
+      } else {
+        lyricsTranslSection.style.display = 'none';
+      }
+    } else {
+      lyricsPlaceholder.style.display = 'block';
+      lyricsContent.style.display = 'none';
+    }
+  }
+
+  // Sidebar toggle
+  sidebarToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('collapsed');
+    sidebarToggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+  });
+
+  // Open modal
+  lyricsEditBtn.addEventListener('click', () => {
+    lyricsOriginalInput.value = savedOriginal;
+    lyricsTranslInput.value = savedTransl;
+    lyricsModalOverlay.classList.add('open');
+  });
+
+  // Close modal
+  function closeModal() { lyricsModalOverlay.classList.remove('open'); }
+  lyricsModalClose.addEventListener('click', closeModal);
+  lyricsCancelBtn.addEventListener('click', closeModal);
+  lyricsModalOverlay.addEventListener('click', (e) => { if (e.target === lyricsModalOverlay) closeModal(); });
+
+  // Save lyrics
+  lyricsSaveBtn.addEventListener('click', () => {
+    savedOriginal = lyricsOriginalInput.value;
+    savedTransl = lyricsTranslInput.value;
+    localStorage.setItem('lyricsOriginal', savedOriginal);
+    localStorage.setItem('lyricsTransl', savedTransl);
+    renderLyrics();
+    closeModal();
+  });
+
+  // i18n additions for sidebar
+  const sidebarI18n = {
+    en: { sidebarTitle:'Lyrics', sidebarSub:'那一刻心动', lyricsPlaceholder:'Lyrics will appear here.\nClick Edit to add.', lyricsOriginal:'Original', lyricsTranslation:'Translation', lyricsEdit:'✎  Edit Lyrics', lyricsModalTitle:'Edit Lyrics', lyricsCancel:'Cancel', lyricsSave:'Save' },
+    ko: { sidebarTitle:'가사', sidebarSub:'那一刻心动', lyricsPlaceholder:'가사가 여기에 표시됩니다.\n수정 버튼을 눌러 추가하세요.', lyricsOriginal:'원문', lyricsTranslation:'번역', lyricsEdit:'✎  가사 편집', lyricsModalTitle:'가사 편집', lyricsCancel:'취소', lyricsSave:'저장' },
+    zh: { sidebarTitle:'歌词', sidebarSub:'那一刻心动', lyricsPlaceholder:'歌词将显示在这里。\n点击编辑以添加。', lyricsOriginal:'原文', lyricsTranslation:'翻译', lyricsEdit:'✎  编辑歌词', lyricsModalTitle:'编辑歌词', lyricsCancel:'取消', lyricsSave:'保存' },
+    ja: { sidebarTitle:'歌詞', sidebarSub:'那一刻心动', lyricsPlaceholder:'歌詞がここに表示されます。\n編集ボタンで追加してください。', lyricsOriginal:'原文', lyricsTranslation:'翻訳', lyricsEdit:'✎  歌詞を編集', lyricsModalTitle:'歌詞を編集', lyricsCancel:'キャンセル', lyricsSave:'保存' },
+    th: { sidebarTitle:'เนื้อเพลง', sidebarSub:'那一刻心动', lyricsPlaceholder:'เนื้อเพลงจะปรากฏที่นี่\nคลิกแก้ไขเพื่อเพิ่ม', lyricsOriginal:'ต้นฉบับ', lyricsTranslation:'คำแปล', lyricsEdit:'✎  แก้ไขเนื้อเพลง', lyricsModalTitle:'แก้ไขเนื้อเพลง', lyricsCancel:'ยกเลิก', lyricsSave:'บันทึก' },
+    id: { sidebarTitle:'Lirik', sidebarSub:'那一刻心动', lyricsPlaceholder:'Lirik akan muncul di sini.\nKlik Edit untuk menambahkan.', lyricsOriginal:'Original', lyricsTranslation:'Terjemahan', lyricsEdit:'✎  Edit Lirik', lyricsModalTitle:'Edit Lirik', lyricsCancel:'Batal', lyricsSave:'Simpan' },
+    es: { sidebarTitle:'Letra', sidebarSub:'那一刻心动', lyricsPlaceholder:'La letra aparecerá aquí.\nHaz clic en Editar para añadir.', lyricsOriginal:'Original', lyricsTranslation:'Traducción', lyricsEdit:'✎  Editar Letra', lyricsModalTitle:'Editar Letra', lyricsCancel:'Cancelar', lyricsSave:'Guardar' },
+  };
+
+  // Patch applyLang to also update sidebar i18n
+  const _origApplyLang = applyLang;
+  applyLang = function(lang) {
+    _origApplyLang(lang);
+    const st = sidebarI18n[lang] || sidebarI18n['en'];
+    Object.keys(st).forEach(key => {
+      document.querySelectorAll('[data-i18n="' + key + '"]').forEach(el => {
+        el.innerHTML = st[key].replace(/\\n/g, '<br>');
+      });
+    });
+    // Update placeholder textarea hints
+    lyricsOriginalInput.placeholder = lang === 'ja' ? '原文の歌詞を貼り付けてください...' :
+      lang === 'ko' ? '원문 가사를 여기에 붙여넣으세요...' :
+      lang === 'zh' ? '在此粘贴原文歌词...' :
+      lang === 'th' ? 'วางเนื้อเพลงต้นฉบับที่นี่...' :
+      lang === 'id' ? 'Tempel lirik asli di sini...' :
+      lang === 'es' ? 'Pega la letra original aquí...' :
+      'Paste original lyrics here...';
+    lyricsTranslInput.placeholder = lang === 'ja' ? '翻訳を貼り付けてください（任意）...' :
+      lang === 'ko' ? '번역을 여기에 붙여넣으세요 (선택사항)...' :
+      lang === 'zh' ? '在此粘贴翻译（可选）...' :
+      lang === 'th' ? 'วางคำแปลที่นี่ (ไม่บังคับ)...' :
+      lang === 'id' ? 'Tempel terjemahan di sini (opsional)...' :
+      lang === 'es' ? 'Pega la traducción aquí (opcional)...' :
+      'Paste translation here (optional)...';
+  };
+
+  renderLyrics();
+</script>
+
 </body>
 </html>
