@@ -1806,7 +1806,8 @@
   const lyricsTranslSection = document.getElementById('lyricsTranslSection');
 
   // Load saved lyrics
-  let savedOriginal = localStorage.getItem('lyricsOriginal') || `那一刻心动｜The Moment
+  const defaultLyrics = {
+    zh: `那一刻心动｜The Moment
 
 
 
@@ -1940,14 +1941,170 @@ WOO WOO WOO WOO
 
 穿过这漫长时空
 
-终于触碰那一刻心动`;
+终于触碰那一刻心动`,
+    en: `那一刻心动｜The Moment
+
+
+
+WOO WOO WOO
+
+
+
+I made a wish
+
+The clouds stirred up the wind
+
+And my heart was touched
+
+That faint glow flickered, yeah
+
+
+
+Too many starlights in the dark
+
+To anyone I just wanna tell
+
+
+
+I see the bright moon reflected in your eyes
+
+
+
+Until you break through the crowds
+
+Through the heavy storm
+
+No matter how fierce the wind and waves,
+
+I'll still move forward toward you
+
+
+
+I watch the light scatter across the stars
+
+The evening breeze blows away the heaviness
+
+Listening to the wind, my heart flutters for a moment
+
+Soaring beneath that endless sky
+
+In the end, it's all reflected in your eyes
+
+Just to hold on to that moment of heart-racing wonder
+
+
+
+Watching shooting stars fall
+
+Lighting up the emptiness of the night sky
+
+Let this moment become tomorrow's colorful arrangement
+
+Leaving tomorrow with a smile of mine
+
+
+
+That is my best confession to the future
+
+
+
+Open your arms wide
+
+Run toward the sea that belongs to me
+
+Until the whole night grows gentle
+
+
+
+Fly away
+
+
+
+We fly forward toward the light
+
+We're finding our own way
+
+Waiting for the dawn to slowly arrive
+
+Before sunrise
+
+
+
+I watch the light scatter across the stars
+
+The evening breeze blows away the heaviness
+
+Listening to the wind, my heart flutters for a moment
+
+Soaring beneath that endless sky
+
+In the end, it's all reflected in your eyes
+
+Just to hold on to that moment of heart-racing wonder
+
+
+
+I'm on my way
+
+Breaking the chain
+
+Stars call my name
+
+I found my way
+
+
+
+At this moment, the hands of time seem to turn
+
+Memories ripple through the shadows
+
+I only want to keep that heart-fluttering moment
+
+
+
+That moment when the light scattered across the stars
+
+The evening breeze blew away the heaviness
+
+Listening to the wind, my heart fluttered
+
+(That moment of heart-racing wonder)
+
+
+
+Soaring beneath that endless sky
+
+In the end, it was reflected in your eyes
+
+Just to hold on to that moment of heart-racing wonder
+
+
+
+WOO WOO WOO WOO
+
+
+
+We never once looked back
+
+Crossing through this long stretch of time and space
+
+At last, we touched that moment of heart-racing wonder`,
+  };
+
+  // Use localStorage override if user has manually saved; otherwise use default for language
+  function getDefaultLyrics(lang) {
+    return lang === 'en' ? defaultLyrics.en : defaultLyrics.zh;
+  }
+
+  let savedOriginal = localStorage.getItem('lyricsOriginal') || '';
   let savedTransl = localStorage.getItem('lyricsTransl') || '';
 
   function renderLyrics() {
-    if (savedOriginal.trim()) {
+    const effectiveLyrics = savedOriginal.trim() ? savedOriginal : getDefaultLyrics(currentLang);
+    if (effectiveLyrics.trim()) {
       lyricsPlaceholder.style.display = 'none';
       lyricsContent.style.display = 'block';
-      lyricsOriginalText.textContent = savedOriginal;
+      lyricsOriginalText.textContent = effectiveLyrics;
       if (savedTransl.trim()) {
         lyricsTranslSection.style.display = 'block';
         lyricsTranslText.textContent = savedTransl;
@@ -1960,7 +2117,7 @@ WOO WOO WOO WOO
     }
   }
 
-  // Open / close sidebar
+    // Open / close sidebar
   function openSidebar() {
     sidebar.classList.add('open');
     sidebarBackdrop.classList.add('open');
@@ -2014,6 +2171,7 @@ WOO WOO WOO WOO
   const _origApplyLang = applyLang;
   applyLang = function(lang) {
     _origApplyLang(lang);
+    renderLyrics();
     const st = sidebarI18n[lang] || sidebarI18n['en'];
     Object.keys(st).forEach(key => {
       document.querySelectorAll('[data-i18n="' + key + '"]').forEach(el => {
