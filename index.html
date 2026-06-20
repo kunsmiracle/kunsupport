@@ -1235,7 +1235,7 @@
   // ---------- streaming tasks ----------
   const taskDefs = [
     { key:'task01', freq:'taskFreqDaily',    hasSearch: true },
-    { key:'task02', freq:'taskFreqDaily' },
+    { key:'task02', freq:'taskFreqDaily', hasImage: 'full-playback-steps.png' },
     { key:'task03', freq:'taskFreqOnce' },
     { key:'task04', freq:'taskFreqDailyOpt' },
     { key:'task05', freq:'taskFreqOnce' },
@@ -1266,6 +1266,7 @@
           </div>
           ${taskT.desc ? `<div class="task-desc">${taskT.desc}</div>` : ''}
           ${td.hasSearch ? `<div class="search-pill">"${t.searchTerm || ''}"</div><img src="manual-search-steps.png" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}
+          ${td.hasImage ? `<img src="${td.hasImage}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}
         </div>
       `;
       list.appendChild(row);
