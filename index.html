@@ -557,9 +557,79 @@
     .countdown{gap:7px;}
     .countdown-unit{min-width:58px; padding:11px 8px 8px;}
   }
+
+  /* ---------- Language Switcher ---------- */
+  .lang-switcher {
+    position: fixed;
+    top: 12px;
+    right: 14px;
+    z-index: 1000;
+  }
+  .lang-btn {
+    background: rgba(21,18,26,0.92);
+    border: 1px solid var(--gold-soft);
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    backdrop-filter: blur(4px);
+  }
+  .lang-btn:hover { border-color: var(--gold); }
+  .lang-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-radius: 8px;
+    overflow: hidden;
+    min-width: 160px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .lang-switcher.open .lang-dropdown { display: block; }
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--cream);
+    cursor: pointer;
+    border-bottom: 1px solid var(--panel-line);
+    transition: background 0.15s;
+  }
+  .lang-option:last-child { border-bottom: none; }
+  .lang-option:hover { background: rgba(201,164,92,0.08); }
+  .lang-option.active { color: var(--gold); }
+  .lang-flag { font-size: 16px; }
 </style>
 </head>
 <body>
+
+  <!-- ===== Language Switcher ===== -->
+  <div class="lang-switcher" id="langSwitcher">
+    <button class="lang-btn" id="langBtn">
+      <span id="langFlag">🇬🇧</span>
+      <span id="langLabel">EN</span>
+      <span>▾</span>
+    </button>
+    <div class="lang-dropdown" id="langDropdown">
+      <div class="lang-option active" data-lang="en"><span class="lang-flag">🇬🇧</span> English</div>
+      <div class="lang-option" data-lang="ko"><span class="lang-flag">🇰🇷</span> 한국어</div>
+      <div class="lang-option" data-lang="zh"><span class="lang-flag">🇨🇳</span> 中文</div>
+      <div class="lang-option" data-lang="ja"><span class="lang-flag">🇯🇵</span> 日本語</div>
+      <div class="lang-option" data-lang="th"><span class="lang-flag">🇹🇭</span> ภาษาไทย</div>
+      <div class="lang-option" data-lang="id"><span class="lang-flag">🇮🇩</span> Indonesia</div>
+      <div class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Español</div>
+    </div>
+  </div>
 
   <div class="hero">
     <div class="hero-eyebrow">KUN SOLO</div>
@@ -569,7 +639,7 @@
     </div>
 
     <h1 class="hero-title">那一刻心动</h1>
-    <div class="hero-sub">The Moment</div>
+    <div class="hero-sub" data-i18n="heroSub">The Moment</div>
 
     <div class="release-done" id="releaseDone">— OUT NOW —</div>
 
@@ -583,7 +653,7 @@
       <div class="countdown-unit"><div class="countdown-num" id="cd-secs">00</div><div class="countdown-label">Sec</div></div>
     </div>
 
-    <div class="release-line">Releasing <strong>June 20, 6PM (CST)</strong></div>
+    <div class="release-line"><span data-i18n="releasing">Releasing</span> <strong>June 20, 6PM (CST)</strong></div>
   </div>
 
   <div class="wrap">
@@ -592,20 +662,20 @@
     <div class="section-block">
       <div class="section-head">
         <span class="section-mark">☁ I.</span>
-        <div class="section-title">Pre-Release Preparation
-          <small>things to finish before release</small>
+        <div class="section-title" data-i18n="sec1Title">Pre-Release Preparation
+          <small data-i18n="sec1Sub">things to finish before release</small>
         </div>
       </div>
 
       <div class="quick-link-row">
-        <a class="open-link" href="https://c6.y.qq.com/base/fcgi-bin/u?__=WPPCaQHM7uz8" target="_blank" rel="noopener">QQ Music — 钱锟 Artist Page →</a>
+        <a class="open-link" href="https://c6.y.qq.com/base/fcgi-bin/u?__=WPPCaQHM7uz8" target="_blank" rel="noopener"><span data-i18n="qqMusicLink">QQ Music — 钱锟 Artist Page →</span></a>
       </div>
 
       <div class="card" data-card>
         <div class="card-head" data-toggle>
           <div class="card-head-text">
             <span class="card-num">01</span>
-            <span class="card-title">YouNi Points (由你积分)</span>
+            <span class="card-title" data-i18n="card01Title">YouNi Points (由你积分)</span>
           </div>
           <span class="card-chevron"></span>
         </div>
@@ -615,9 +685,9 @@
               <span>Search "腾讯音乐榜" in QQ Music</span><i>→</i>
               <span>Open the points task page (top-right)</span>
             </div>
-            <p style="margin-top:12px;">Complete all tasks one by one. Once finished, switch to your next account and repeat the process.</p>
-            <div class="note">Tencent Music Chart is one of the most important charts for supporting the release.</div>
-            <a class="open-link" href="https://c6.y.qq.com/base/fcgi-bin/u?__=Tdp4u87M7oSX" target="_blank" rel="noopener">Open Tencent Music Chart →</a>
+            <p style="margin-top:12px;" data-i18n="card01Desc">Complete all tasks one by one. Once finished, switch to your next account and repeat the process.</p>
+            <div class="note" data-i18n="card01Note">Tencent Music Chart is one of the most important charts for supporting the release.</div>
+            <a class="open-link" href="https://c6.y.qq.com/base/fcgi-bin/u?__=Tdp4u87M7oSX" target="_blank" rel="noopener"><span data-i18n="openTencent">Open Tencent Music Chart →</span></a>
           </div>
                       <img src="youni-point-steps.png" alt="YouNi Points Steps" style="width:100%;max-width:600px;margin-top:12px;border-radius:6px;">
         </div>
@@ -627,7 +697,7 @@
         <div class="card-head" data-toggle>
           <div class="card-head-text">
             <span class="card-num">02</span>
-            <span class="card-title">Song Promotion Power (推歌电量)</span>
+            <span class="card-title" data-i18n="card02Title">Song Promotion Power (推歌电量)</span>
           </div>
           <span class="card-chevron"></span>
         </div>
@@ -641,9 +711,9 @@
               <span class="path">Tap 发电</span>
             </div>
               <img src="song-promotion-power-steps.png" alt="Song Promotion Power Steps" style="width:100%;max-width:600px;margin-top:12px;border-radius:6px;">
-            <p style="margin-top:12px;">After completing the tasks, switch to your next account and repeat.</p>
-            <div class="note">Tasks marked with a timer will refresh 4 hours after completion.</div>
-            <a class="open-link" href="https://c6.y.qq.com/base/fcgi-bin/u?__=iRJ6YJ7M799l" target="_blank" rel="noopener">Open Song Promotion Power →</a>
+            <p style="margin-top:12px;" data-i18n="card02Desc">After completing the tasks, switch to your next account and repeat.</p>
+            <div class="note" data-i18n="card02Note">Tasks marked with a timer will refresh 4 hours after completion.</div>
+            <a class="open-link" href="https://c6.y.qq.com/base/fcgi-bin/u?__=iRJ6YJ7M799l" target="_blank" rel="noopener"><span data-i18n="openSongPower">Open Song Promotion Power →</span></a>
           </div>
         </div>
       </div>
@@ -653,19 +723,19 @@
         <div class="card-head" data-toggle>
           <div class="card-head-text">
             <span class="card-num">03</span>
-            <span class="card-title">Coin Center (金币中心)</span>
+            <span class="card-title" data-i18n="card03Title">Coin Center (金币中心)</span>
           </div>
           <span class="card-chevron"></span>
         </div>
         <div class="card-body">
           <div class="card-body-inner">
-            <p>Earn coins that can be used to purchase the song.<br><strong style="color:var(--gold);">1 song purchase = 2 RMB ≈ 14,000 coins</strong></p>
+            <p data-i18n="card03Desc">Earn coins that can be used to purchase the song.<br><strong style="color:var(--gold);" data-i18n="card03Coins">1 song purchase = 2 RMB ≈ 14,000 coins</strong></p>
             <div class="flow">
               <span>My Page</span><i>→</i>
               <span class="path">领现金</span>
             </div>
-            <p style="margin-top:12px;">Complete ads and available tasks to earn coins.</p>
-            <div class="note">Apple users may have difficulty making purchases, so please try to prepare at least 42,000 coins (14,000 × 3) in advance.</div>
+            <p style="margin-top:12px;" data-i18n="card03Earn">Complete ads and available tasks to earn coins.</p>
+            <div class="note" data-i18n="card03Note">Apple users may have difficulty making purchases, so please try to prepare at least 42,000 coins (14,000 × 3) in advance.</div>
           <img src="coin-center-steps.png" alt="Coin Center Steps" style="width:100%;max-width:600px;margin-top:12px;border-radius:6px;">
           </div>
         </div>
@@ -675,16 +745,16 @@
         <div class="card-head" data-toggle>
           <div class="card-head-text">
             <span class="card-num">04</span>
-            <span class="card-title">Creating Multiple Accounts</span>
+            <span class="card-title" data-i18n="card04Title">Creating Multiple Accounts</span>
           </div>
           <span class="card-chevron"></span>
         </div>
         <div class="card-body">
           <div class="card-body-inner">
-            <p>One phone number can register:</p>
+            <p data-i18n="card04Desc">One phone number can register:</p>
             <ul>
-              <li>2 WeChat accounts</li>
-              <li>5 QQ accounts</li>
+              <li data-i18n="card04WeChat">2 WeChat accounts</li>
+              <li data-i18n="card04QQ">5 QQ accounts</li>
             </ul>
           </div>
         </div>
@@ -695,13 +765,13 @@
     <div class="section-block">
       <div class="section-head">
         <span class="section-mark">☁ II.</span>
-        <div class="section-title">Music Streaming Platforms
-          <small>song reservation links</small>
+        <div class="section-title" data-i18n="sec2Title">Music Streaming Platforms
+          <small data-i18n="sec2Sub">song reservation links</small>
         </div>
       </div>
 
       <div class="card">
-        <div class="social-group-title">Song Reservation</div>
+        <div class="social-group-title" data-i18n="songReservation">Song Reservation</div>
         <a class="link-item" href="https://y.qq.com/n3/client/pages/reserve_v2/detail.html?_hidehd=1&_hdct=1&_miniplayer=1&_fontscale=1&id=1020951593" target="_blank" rel="noopener">
           <div class="link-text"><div class="link-title">QQ音乐</div></div>
           <span class="link-arrow">→</span>
@@ -721,8 +791,8 @@
     <div class="section-block">
       <div class="section-head">
         <span class="section-mark">☁ III.</span>
-        <div class="section-title">Settings Before Release
-          <small>device &amp; app setup</small>
+        <div class="section-title" data-i18n="sec3Title">Settings Before Release
+          <small data-i18n="sec3Sub">device &amp; app setup</small>
         </div>
       </div>
 
@@ -730,17 +800,17 @@
         <div class="card-head" data-toggle>
           <div class="card-head-text">
             <span class="card-num">①</span>
-            <span class="card-title">Clean-Up Steps</span>
+            <span class="card-title" data-i18n="card05Title">Clean-Up Steps</span>
           </div>
           <span class="card-chevron"></span>
         </div>
         <div class="card-body">
           <div class="card-body-inner">
             <div class="setup-group">
-              <div class="setup-item"><span class="setup-dot"></span>Free up device storage</div>
+              <div class="setup-item"><span class="setup-dot"></span><span data-i18n="setup01">Free up device storage</span></div>
                             <img src="cleanup-steps.png" alt="Clean-Up Steps" style="width:100%;max-width:600px;display:block;margin:12px auto;border-radius:8px;">
-              <div class="setup-item"><span class="setup-dot"></span>Delete all downloaded songs from your device</div>              <img src="delete-songs-steps.png" alt="Delete downloaded songs steps" style="width:100%;max-width:600px;display:block;margin:12px auto;border-radius:8px;">
-              <div class="setup-item"><span class="setup-dot"></span>Clear all existing playlists</div><img src="clear-playlist-steps.png" alt="Clear playlist steps" style="width:100%;max-width:600px;display:block;margin:12px auto;border-radius:8px;">
+              <div class="setup-item"><span class="setup-dot"></span><span data-i18n="setup02">Delete all downloaded songs from your device</span></div>              <img src="delete-songs-steps.png" alt="Delete downloaded songs steps" style="width:100%;max-width:600px;display:block;margin:12px auto;border-radius:8px;">
+              <div class="setup-item"><span class="setup-dot"></span><span data-i18n="setup03">Clear all existing playlists</span></div><img src="clear-playlist-steps.png" alt="Clear playlist steps" style="width:100%;max-width:600px;display:block;margin:12px auto;border-radius:8px;">
             </div>
           </div>
         </div>
@@ -750,16 +820,16 @@
         <div class="card-head" data-toggle>
           <div class="card-head-text">
             <span class="card-num">②</span>
-            <span class="card-title">Playback Settings</span>
+            <span class="card-title" data-i18n="card06Title">Playback Settings</span>
           </div>
           <span class="card-chevron"></span>
         </div>
         <div class="card-body">
           <div class="card-body-inner">
             <div class="setup-group">
-              <div class="setup-item"><span class="setup-dot"></span>Turn on "允许多应用同时播放"</div>
-              <div class="setup-item"><span class="setup-dot"></span>Set "边听边存" to "未开启"</div>
-              <div class="setup-item"><span class="setup-dot"></span>Set "缓存上限" to "不缓存"</div>
+              <div class="setup-item"><span class="setup-dot"></span><span data-i18n="setup04">Turn on "允许多应用同时播放"</span></div>
+              <div class="setup-item"><span class="setup-dot"></span><span data-i18n="setup05">Set "边听边存" to "未开启"</span></div>
+              <div class="setup-item"><span class="setup-dot"></span><span data-i18n="setup06">Set "缓存上限" to "不缓存"</span></div>
             </div>
           <img src="playback-settings-guide.png" alt="Playback Settings Guide" style="width:100%; margin-top:12px; border-radius:8px;">
           </div>
@@ -771,8 +841,8 @@
     <div class="section-block">
       <div class="section-head">
         <span class="section-mark">☁ IV.</span>
-        <div class="section-title">Streaming Guide
-          <small>daily task checklist</small>
+        <div class="section-title" data-i18n="sec4Title">Streaming Guide
+          <small data-i18n="sec4Sub">daily task checklist</small>
         </div>
       </div>
 
@@ -781,7 +851,7 @@
       </div>
 
       <div class="reset-bar">
-        <button class="reset-btn" id="resetBtn">CLEAR TODAY'S CHECKS</button>
+        <button class="reset-btn" id="resetBtn" data-i18n="resetBtn">CLEAR TODAY'S CHECKS</button>
       </div>
     </div>
 
@@ -789,8 +859,8 @@
     <div class="section-block">
       <div class="section-head">
         <span class="section-mark">☁ V.</span>
-        <div class="section-title">Social Media
-          <small>official QIAN KUN accounts</small>
+        <div class="section-title" data-i18n="sec5Title">Social Media
+          <small data-i18n="sec5Sub">official QIAN KUN accounts</small>
         </div>
       </div>
 
@@ -889,49 +959,16 @@
   document.querySelectorAll('.card.open .card-body').forEach(b => { b.style.maxHeight = 'none'; });
 
   // ---------- streaming tasks ----------
-  const tasks = [
-    {
-      title: 'Manual Search',
-      freq: 'Daily',
-      desc: 'Search manually at different times throughout the day.',
-      search: '钱锟 + 那一刻心动'
-    },
-    {
-      title: 'Full Playback ×10',
-      freq: 'Daily',
-      desc: 'Do not mute the audio. Do not use single-song repeat. For the New Song Chart, only one full play per account per hour is counted.'
-    },
-    {
-      title: 'Add to Favorites',
-      freq: 'Once per account'
-    },
-    {
-      title: 'Purchase the Song',
-      freq: 'Daily, if possible',
-      desc: 'Both main and secondary accounts can purchase multiple times. Purchases also increase support points for the Super Topic community.'
-    },
-    {
-      title: 'Download',
-      freq: 'Once per account',
-      desc: 'After downloading, you may delete the local file immediately.'
-    },
-    {
-      title: 'Comment',
-      freq: 'Daily'
-    },
-    {
-      title: 'Share',
-      freq: 'Daily'
-    },
-    {
-      title: 'YouNi Chart Recommendation (由你榜推荐)',
-      freq: 'Daily',
-      desc: "QQ Music's chart recommendation feature."
-    },
-    {
-      title: 'Song Boosting (推歌加热)',
-      freq: 'Daily'
-    },
+  const taskDefs = [
+    { key:'task01', freq:'taskFreqDaily',    hasSearch: true },
+    { key:'task02', freq:'taskFreqDaily' },
+    { key:'task03', freq:'taskFreqOnce' },
+    { key:'task04', freq:'taskFreqDailyOpt' },
+    { key:'task05', freq:'taskFreqOnce' },
+    { key:'task06', freq:'taskFreqDaily' },
+    { key:'task07', freq:'taskFreqDaily' },
+    { key:'task08', freq:'taskFreqDaily' },
+    { key:'task09', freq:'taskFreqDaily' },
   ];
 
   let checkedState = {};
@@ -939,24 +976,26 @@
   function renderTasks(){
     const list = document.getElementById('taskList');
     list.innerHTML = '';
-    tasks.forEach((t, i) => {
+    const t = translations[currentLang] || translations['en'];
+    taskDefs.forEach((td, i) => {
       const row = document.createElement('div');
       row.className = 'task';
       const isChecked = !!checkedState[i];
+      const taskT = t[td.key] || {};
+      const freqT = t[td.freq] || td.freq;
       row.innerHTML = `
         <div class="task-check ${isChecked ? 'checked' : ''}" data-idx="${i}"></div>
         <div class="task-main">
           <div class="task-top">
-            <span class="task-title ${isChecked ? 'checked-text' : ''}">${t.title}</span>
-            <span class="task-freq">${t.freq}</span>
+            <span class="task-title ${isChecked ? 'checked-text' : ''}">${taskT.title || ''}</span>
+            <span class="task-freq">${freqT}</span>
           </div>
-          ${t.desc ? `<div class="task-desc">${t.desc}</div>` : ''}
-          ${t.search ? `<div class="search-pill">"${t.search}"</div>` : ''}
+          ${taskT.desc ? `<div class="task-desc">${taskT.desc}</div>` : ''}
+          ${td.hasSearch ? `<div class="search-pill">"${t.searchTerm || ''}"</div>` : ''}
         </div>
       `;
       list.appendChild(row);
     });
-
     list.querySelectorAll('.task-check').forEach(box => {
       box.addEventListener('click', () => {
         const idx = box.dataset.idx;
@@ -966,7 +1005,7 @@
     });
   }
 
-  document.getElementById('resetBtn').addEventListener('click', () => {
+    document.getElementById('resetBtn').addEventListener('click', () => {
     checkedState = {};
     renderTasks();
   });
@@ -975,5 +1014,437 @@
 </script>
 
 <footer style="text-align:center; padding:24px 0 16px; color:#8d8593; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; border-top:1px solid #2a2430; margin-top:40px;">KUN FANBASE</footer>
+
+<script>
+  // ===== i18n translations =====
+  const translations = {
+    en: {
+      heroSub: "The Moment",
+      releasing: "Releasing",
+      sec1Title: "Pre-Release Preparation",
+      sec1Sub: "things to finish before release",
+      sec2Title: "Music Streaming Platforms",
+      sec2Sub: "song reservation links",
+      sec3Title: "Settings Before Release",
+      sec3Sub: "device & app setup",
+      sec4Title: "Streaming Guide",
+      sec4Sub: "daily task checklist",
+      sec5Title: "Social Media",
+      sec5Sub: "official QIAN KUN accounts",
+      card01Title: "YouNi Points (由你积分)",
+      card01Desc: "Complete all tasks one by one. Once finished, switch to your next account and repeat the process.",
+      card01Note: "Tencent Music Chart is one of the most important charts for supporting the release.",
+      card02Title: "Song Promotion Power (推歌电量)",
+      card02Desc: "After completing the tasks, switch to your next account and repeat.",
+      card02Note: "Tasks marked with a timer will refresh 4 hours after completion.",
+      card03Title: "Coin Center (金币中心)",
+      card03Desc: 'Earn coins that can be used to purchase the song.<br><strong style="color:var(--gold);">1 song purchase = 2 RMB ≈ 14,000 coins</strong>',
+      card03Earn: "Complete ads and available tasks to earn coins.",
+      card03Note: "Apple users may have difficulty making purchases, so please try to prepare at least 42,000 coins (14,000 × 3) in advance.",
+      card04Title: "Creating Multiple Accounts",
+      card04Desc: "One phone number can register:",
+      card04WeChat: "2 WeChat accounts",
+      card04QQ: "5 QQ accounts",
+      card05Title: "Clean-Up Steps",
+      card06Title: "Playback Settings",
+      setup01: 'Free up device storage',
+      setup02: 'Delete all downloaded songs from your device',
+      setup03: 'Clear all existing playlists',
+      setup04: 'Turn on "允许多应用同时播放"',
+      setup05: 'Set "边听边存" to "未开启"',
+      setup06: 'Set "缓存上限" to "不缓存"',
+      songReservation: "Song Reservation",
+      qqMusicLink: "QQ Music — 钱锟 Artist Page →",
+      openTencent: "Open Tencent Music Chart →",
+      openSongPower: "Open Song Promotion Power →",
+      resetBtn: "CLEAR TODAY'S CHECKS",
+      taskFreqDaily: "Daily",
+      taskFreqOnce: "Once per account",
+      taskFreqDailyOpt: "Daily, if possible",
+      searchTerm: "钱锟 + 那一刻心动",
+      task01: { title: "Manual Search", desc: "Search manually at different times throughout the day." },
+      task02: { title: "Full Playback ×10", desc: "Do not mute the audio. Do not use single-song repeat. For the New Song Chart, only one full play per account per hour is counted." },
+      task03: { title: "Add to Favorites" },
+      task04: { title: "Purchase the Song", desc: "Both main and secondary accounts can purchase multiple times. Purchases also increase support points for the Super Topic community." },
+      task05: { title: "Download", desc: "After downloading, you may delete the local file immediately." },
+      task06: { title: "Comment" },
+      task07: { title: "Share" },
+      task08: { title: "YouNi Chart Recommendation (由你榜推荐)", desc: "QQ Music's chart recommendation feature." },
+      task09: { title: "Song Boosting (推歌加热)" },
+    },
+    ko: {
+      heroSub: "그 순간의 설렘",
+      releasing: "발매일",
+      sec1Title: "발매 전 준비",
+      sec1Sub: "발매 전에 완료할 사항",
+      sec2Title: "음악 스트리밍 플랫폼",
+      sec2Sub: "음악 예약 링크",
+      sec3Title: "발매 전 설정",
+      sec3Sub: "기기 & 앱 설정",
+      sec4Title: "스트리밍 가이드",
+      sec4Sub: "일일 체크리스트",
+      sec5Title: "소셜 미디어",
+      sec5Sub: "공식 QIAN KUN 계정",
+      card01Title: "유니 포인트 (由你积分)",
+      card01Desc: "모든 작업을 하나씩 완료하세요. 완료 후 다음 계정으로 전환하여 반복하세요.",
+      card01Note: "텐센트 음악 차트는 발매를 지원하는 가장 중요한 차트 중 하나입니다.",
+      card02Title: "노래 홍보 파워 (推歌电量)",
+      card02Desc: "작업 완료 후 다음 계정으로 전환하여 반복하세요.",
+      card02Note: "타이머가 표시된 작업은 완료 후 4시간 후에 새로 고침됩니다.",
+      card03Title: "코인 센터 (金币中心)",
+      card03Desc: '노래 구매에 사용할 수 있는 코인을 획득하세요.<br><strong style="color:var(--gold);">1회 구매 = 2위안 ≈ 14,000코인</strong>',
+      card03Earn: "광고 시청 및 가능한 작업을 완료하여 코인을 획득하세요.",
+      card03Note: "애플 사용자는 구매에 어려움이 있을 수 있으니 미리 최소 42,000코인 (14,000 × 3)을 준비해 주세요.",
+      card04Title: "다중 계정 만들기",
+      card04Desc: "하나의 전화번호로 등록 가능한 계정 수:",
+      card04WeChat: "위챗 계정 2개",
+      card04QQ: "QQ 계정 5개",
+      card05Title: "정리 단계",
+      card06Title: "재생 설정",
+      setup01: '기기 저장 공간 확보',
+      setup02: '기기에서 다운로드된 모든 노래 삭제',
+      setup03: '기존 플레이리스트 모두 삭제',
+      setup04: '"允许多应用同时播放" 켜기',
+      setup05: '"边听边存" 을 "未开启" 로 설정',
+      setup06: '"缓存上限" 을 "不缓存" 로 설정',
+      songReservation: "음악 예약",
+      qqMusicLink: "QQ Music — 钱锟 아티스트 페이지 →",
+      openTencent: "텐센트 음악 차트 열기 →",
+      openSongPower: "노래 홍보 파워 열기 →",
+      resetBtn: "오늘의 체크 초기화",
+      taskFreqDaily: "매일",
+      taskFreqOnce: "계정당 1회",
+      taskFreqDailyOpt: "가능하면 매일",
+      searchTerm: "钱锟 + 那一刻心动",
+      task01: { title: "수동 검색", desc: "하루 중 다른 시간에 수동으로 검색하세요." },
+      task02: { title: "전체 재생 ×10", desc: "소리를 끄지 마세요. 단일 곡 반복을 사용하지 마세요. 신곡 차트의 경우 계정당 시간당 1회 전체 재생만 집계됩니다." },
+      task03: { title: "즐겨찾기 추가" },
+      task04: { title: "노래 구매", desc: "메인 및 서브 계정 모두 여러 번 구매할 수 있습니다. 구매는 슈퍼 토픽 커뮤니티의 지원 포인트도 증가시킵니다." },
+      task05: { title: "다운로드", desc: "다운로드 후 로컬 파일을 즉시 삭제해도 됩니다." },
+      task06: { title: "댓글" },
+      task07: { title: "공유" },
+      task08: { title: "유니 차트 추천 (由你榜推荐)", desc: "QQ Music의 차트 추천 기능입니다." },
+      task09: { title: "노래 부스팅 (推歌加热)" },
+    },
+    zh: {
+      heroSub: "那一刻心动",
+      releasing: "发行时间",
+      sec1Title: "发行前准备",
+      sec1Sub: "发行前需完成的事项",
+      sec2Title: "音乐流媒体平台",
+      sec2Sub: "音乐预约链接",
+      sec3Title: "发行前设置",
+      sec3Sub: "设备 & 应用设置",
+      sec4Title: "打榜指南",
+      sec4Sub: "每日任务清单",
+      sec5Title: "社交媒体",
+      sec5Sub: "钱锟官方账号",
+      card01Title: "由你积分",
+      card01Desc: "逐一完成所有任务，完成后切换到下一个账号并重复操作。",
+      card01Note: "腾讯音乐榜是支持发行最重要的榜单之一。",
+      card02Title: "推歌电量",
+      card02Desc: "完成任务后，切换到下一个账号并重复操作。",
+      card02Note: "标有计时器的任务在完成后4小时刷新。",
+      card03Title: "金币中心",
+      card03Desc: '获得可用于购买歌曲的金币。<br><strong style="color:var(--gold);">购买1首歌 = 2元 ≈ 14,000金币</strong>',
+      card03Earn: "完成广告和可用任务以获得金币。",
+      card03Note: "苹果用户购买可能有困难，请提前准备至少42,000金币（14,000 × 3）。",
+      card04Title: "创建多个账号",
+      card04Desc: "一个手机号可以注册：",
+      card04WeChat: "2个微信账号",
+      card04QQ: "5个QQ账号",
+      card05Title: "清理步骤",
+      card06Title: "播放设置",
+      setup01: '释放设备存储空间',
+      setup02: '删除设备上所有已下载的歌曲',
+      setup03: '清除所有现有播放列表',
+      setup04: '开启"允许多应用同时播放"',
+      setup05: '将"边听边存"设置为"未开启"',
+      setup06: '将"缓存上限"设置为"不缓存"',
+      songReservation: "歌曲预约",
+      qqMusicLink: "QQ音乐 — 钱锟 艺人主页 →",
+      openTencent: "打开腾讯音乐榜 →",
+      openSongPower: "打开推歌电量 →",
+      resetBtn: "清除今日打卡",
+      taskFreqDaily: "每天",
+      taskFreqOnce: "每个账号一次",
+      taskFreqDailyOpt: "每天（如可能）",
+      searchTerm: "钱锟 + 那一刻心动",
+      task01: { title: "手动搜索", desc: "每天在不同时间段手动搜索。" },
+      task02: { title: "完整播放 ×10", desc: "请勿静音。请勿单曲循环。新歌榜每账号每小时只计1次完整播放。" },
+      task03: { title: "添加到喜欢" },
+      task04: { title: "购买歌曲", desc: "主账号和副账号都可以多次购买。购买也会增加超话社区的支持积分。" },
+      task05: { title: "下载", desc: "下载后可立即删除本地文件。" },
+      task06: { title: "评论" },
+      task07: { title: "分享" },
+      task08: { title: "由你榜推荐", desc: "QQ音乐的榜单推荐功能。" },
+      task09: { title: "推歌加热" },
+    },
+    ja: {
+      heroSub: "あの瞬間のときめき",
+      releasing: "リリース日",
+      sec1Title: "リリース前の準備",
+      sec1Sub: "リリース前に完了すること",
+      sec2Title: "音楽ストリーミングプラットフォーム",
+      sec2Sub: "楽曲予約リンク",
+      sec3Title: "リリース前の設定",
+      sec3Sub: "デバイス＆アプリ設定",
+      sec4Title: "ストリーミングガイド",
+      sec4Sub: "毎日のタスクリスト",
+      sec5Title: "ソーシャルメディア",
+      sec5Sub: "QIAN KUN公式アカウント",
+      card01Title: "YouNiポイント（由你积分）",
+      card01Desc: "すべてのタスクを一つずつ完了してください。完了したら次のアカウントに切り替えて繰り返します。",
+      card01Note: "テンセントミュージックチャートはリリースを支援する最も重要なチャートの一つです。",
+      card02Title: "ソングプロモーションパワー（推歌电量）",
+      card02Desc: "タスク完了後、次のアカウントに切り替えて繰り返します。",
+      card02Note: "タイマーが付いたタスクは完了から4時間後にリフレッシュされます。",
+      card03Title: "コインセンター（金币中心）",
+      card03Desc: '楽曲購入に使えるコインを獲得しましょう。<br><strong style="color:var(--gold);">1曲購入 = 2元 ≈ 14,000コイン</strong>',
+      card03Earn: "広告視聴や利用可能なタスクを完了してコインを獲得しましょう。",
+      card03Note: "Appleユーザーは購入に困難がある場合があります。事前に少なくとも42,000コイン（14,000 × 3）を準備してください。",
+      card04Title: "複数アカウントの作成",
+      card04Desc: "1つの電話番号で登録できるアカウント数：",
+      card04WeChat: "WeChatアカウント 2つ",
+      card04QQ: "QQアカウント 5つ",
+      card05Title: "クリーンアップ手順",
+      card06Title: "再生設定",
+      setup01: 'デバイスのストレージを確保する',
+      setup02: 'デバイスからダウンロード済みの曲をすべて削除する',
+      setup03: '既存のプレイリストをすべて消去する',
+      setup04: '"允许多应用同时播放"をオンにする',
+      setup05: '"边听边存"を"未开启"に設定する',
+      setup06: '"缓存上限"を"不缓存"に設定する',
+      songReservation: "楽曲予約",
+      qqMusicLink: "QQ Music — 钱锟 アーティストページ →",
+      openTencent: "テンセントミュージックチャートを開く →",
+      openSongPower: "ソングプロモーションパワーを開く →",
+      resetBtn: "今日のチェックをリセット",
+      taskFreqDaily: "毎日",
+      taskFreqOnce: "アカウントごとに1回",
+      taskFreqDailyOpt: "可能なら毎日",
+      searchTerm: "钱锟 + 那一刻心动",
+      task01: { title: "手動検索", desc: "1日の異なる時間帯に手動で検索してください。" },
+      task02: { title: "フル再生 ×10", desc: "音量をミュートしないでください。1曲リピートを使わないでください。新曲チャートは1アカウントにつき1時間に1回のフル再生のみカウントされます。" },
+      task03: { title: "お気に入りに追加" },
+      task04: { title: "楽曲を購入", desc: "メインアカウントもサブアカウントも複数回購入できます。購入はスーパートピックコミュニティのサポートポイントも増加させます。" },
+      task05: { title: "ダウンロード", desc: "ダウンロード後、ローカルファイルをすぐに削除しても構いません。" },
+      task06: { title: "コメント" },
+      task07: { title: "シェア" },
+      task08: { title: "YouNiチャートレコメンド（由你榜推荐）", desc: "QQ Musicのチャートレコメンド機能です。" },
+      task09: { title: "ソングブースティング（推歌加热）" },
+    },
+    th: {
+      heroSub: "ช่วงเวลาแห่งความตื่นเต้น",
+      releasing: "วันวางจำหน่าย",
+      sec1Title: "การเตรียมตัวก่อนวางจำหน่าย",
+      sec1Sub: "สิ่งที่ต้องทำก่อนวางจำหน่าย",
+      sec2Title: "แพลตฟอร์มสตรีมเพลง",
+      sec2Sub: "ลิงก์จองเพลง",
+      sec3Title: "การตั้งค่าก่อนวางจำหน่าย",
+      sec3Sub: "ตั้งค่าอุปกรณ์ & แอป",
+      sec4Title: "คู่มือสตรีมมิ่ง",
+      sec4Sub: "รายการงานประจำวัน",
+      sec5Title: "โซเชียลมีเดีย",
+      sec5Sub: "บัญชีทางการ QIAN KUN",
+      card01Title: "YouNi Points (由你积分)",
+      card01Desc: "ทำงานทีละรายการ เมื่อเสร็จแล้วสลับไปยังบัญชีถัดไปและทำซ้ำ",
+      card01Note: "Tencent Music Chart คือชาร์ตที่สำคัญที่สุดในการสนับสนุนการวางจำหน่าย",
+      card02Title: "Song Promotion Power (推歌电量)",
+      card02Desc: "หลังทำงานเสร็จ สลับไปยังบัญชีถัดไปและทำซ้ำ",
+      card02Note: "งานที่มีไอคอนนาฬิกาจะรีเฟรชหลังจากทำเสร็จ 4 ชั่วโมง",
+      card03Title: "Coin Center (金币中心)",
+      card03Desc: 'สะสมเหรียญสำหรับซื้อเพลง<br><strong style="color:var(--gold);">ซื้อ 1 เพลง = 2 หยวน ≈ 14,000 เหรียญ</strong>',
+      card03Earn: "ดูโฆษณาและทำงานที่มีเพื่อรับเหรียญ",
+      card03Note: "ผู้ใช้ Apple อาจมีปัญหาในการซื้อ โปรดเตรียมอย่างน้อย 42,000 เหรียญ (14,000 × 3) ล่วงหน้า",
+      card04Title: "สร้างหลายบัญชี",
+      card04Desc: "หมายเลขโทรศัพท์หนึ่งหมายเลขสามารถลงทะเบียนได้:",
+      card04WeChat: "บัญชี WeChat 2 บัญชี",
+      card04QQ: "บัญชี QQ 5 บัญชี",
+      card05Title: "ขั้นตอนการทำความสะอาด",
+      card06Title: "การตั้งค่าการเล่น",
+      setup01: 'เพิ่มพื้นที่จัดเก็บในอุปกรณ์',
+      setup02: 'ลบเพลงที่ดาวน์โหลดทั้งหมดออกจากอุปกรณ์',
+      setup03: 'ล้างเพลย์ลิสต์ที่มีอยู่ทั้งหมด',
+      setup04: 'เปิด "允许多应用同时播放"',
+      setup05: 'ตั้ง "边听边存" เป็น "未开启"',
+      setup06: 'ตั้ง "缓存上限" เป็น "不缓存"',
+      songReservation: "จองเพลง",
+      qqMusicLink: "QQ Music — 钱锟 หน้าศิลปิน →",
+      openTencent: "เปิด Tencent Music Chart →",
+      openSongPower: "เปิด Song Promotion Power →",
+      resetBtn: "ล้างการเช็คของวันนี้",
+      taskFreqDaily: "ทุกวัน",
+      taskFreqOnce: "ครั้งเดียวต่อบัญชี",
+      taskFreqDailyOpt: "ทุกวันถ้าเป็นไปได้",
+      searchTerm: "钱锟 + 那一刻心动",
+      task01: { title: "ค้นหาด้วยตัวเอง", desc: "ค้นหาด้วยตัวเองในเวลาต่างๆ ตลอดวัน" },
+      task02: { title: "เล่นเต็มเพลง ×10", desc: "ห้ามปิดเสียง ห้ามใช้การเล่นซ้ำเพลงเดียว สำหรับชาร์ตเพลงใหม่ นับเพียง 1 ครั้งต่อชั่วโมงต่อบัญชี" },
+      task03: { title: "เพิ่มในรายการโปรด" },
+      task04: { title: "ซื้อเพลง", desc: "ทั้งบัญชีหลักและบัญชีรองสามารถซื้อได้หลายครั้ง การซื้อยังเพิ่มคะแนนสนับสนุนในชุมชน Super Topic ด้วย" },
+      task05: { title: "ดาวน์โหลด", desc: "หลังจากดาวน์โหลด สามารถลบไฟล์ในเครื่องได้ทันที" },
+      task06: { title: "คอมเมนต์" },
+      task07: { title: "แชร์" },
+      task08: { title: "YouNi Chart Recommendation (由你榜推荐)", desc: "ฟีเจอร์แนะนำชาร์ตของ QQ Music" },
+      task09: { title: "Song Boosting (推歌加热)" },
+    },
+    id: {
+      heroSub: "Momen Deg-Degan",
+      releasing: "Tanggal Rilis",
+      sec1Title: "Persiapan Sebelum Rilis",
+      sec1Sub: "hal yang harus diselesaikan sebelum rilis",
+      sec2Title: "Platform Streaming Musik",
+      sec2Sub: "link reservasi lagu",
+      sec3Title: "Pengaturan Sebelum Rilis",
+      sec3Sub: "pengaturan perangkat & aplikasi",
+      sec4Title: "Panduan Streaming",
+      sec4Sub: "daftar tugas harian",
+      sec5Title: "Media Sosial",
+      sec5Sub: "akun resmi QIAN KUN",
+      card01Title: "YouNi Points (由你积分)",
+      card01Desc: "Selesaikan semua tugas satu per satu. Setelah selesai, ganti ke akun berikutnya dan ulangi.",
+      card01Note: "Tencent Music Chart adalah salah satu chart terpenting untuk mendukung rilis.",
+      card02Title: "Song Promotion Power (推歌电量)",
+      card02Desc: "Setelah menyelesaikan tugas, ganti ke akun berikutnya dan ulangi.",
+      card02Note: "Tugas yang ditandai dengan timer akan diperbarui 4 jam setelah selesai.",
+      card03Title: "Coin Center (金币中心)",
+      card03Desc: 'Kumpulkan koin untuk membeli lagu.<br><strong style="color:var(--gold);">1 pembelian lagu = 2 RMB ≈ 14.000 koin</strong>',
+      card03Earn: "Tonton iklan dan selesaikan tugas yang tersedia untuk mendapatkan koin.",
+      card03Note: "Pengguna Apple mungkin kesulitan melakukan pembelian, siapkan minimal 42.000 koin (14.000 × 3) terlebih dahulu.",
+      card04Title: "Membuat Beberapa Akun",
+      card04Desc: "Satu nomor telepon dapat mendaftarkan:",
+      card04WeChat: "2 akun WeChat",
+      card04QQ: "5 akun QQ",
+      card05Title: "Langkah Pembersihan",
+      card06Title: "Pengaturan Pemutaran",
+      setup01: 'Bebaskan penyimpanan perangkat',
+      setup02: 'Hapus semua lagu yang diunduh dari perangkat Anda',
+      setup03: 'Hapus semua playlist yang ada',
+      setup04: 'Aktifkan "允许多应用同时播放"',
+      setup05: 'Atur "边听边存" ke "未开启"',
+      setup06: 'Atur "缓存上限" ke "不缓存"',
+      songReservation: "Reservasi Lagu",
+      qqMusicLink: "QQ Music — Halaman Artis 钱锟 →",
+      openTencent: "Buka Tencent Music Chart →",
+      openSongPower: "Buka Song Promotion Power →",
+      resetBtn: "HAPUS CEK HARI INI",
+      taskFreqDaily: "Setiap hari",
+      taskFreqOnce: "Sekali per akun",
+      taskFreqDailyOpt: "Setiap hari jika memungkinkan",
+      searchTerm: "钱锟 + 那一刻心动",
+      task01: { title: "Pencarian Manual", desc: "Cari secara manual pada waktu yang berbeda sepanjang hari." },
+      task02: { title: "Putar Penuh ×10", desc: "Jangan matikan audio. Jangan gunakan repeat satu lagu. Untuk New Song Chart, hanya satu putar penuh per akun per jam yang dihitung." },
+      task03: { title: "Tambah ke Favorit" },
+      task04: { title: "Beli Lagu", desc: "Akun utama dan sekunder dapat melakukan pembelian berkali-kali. Pembelian juga meningkatkan poin dukungan di komunitas Super Topic." },
+      task05: { title: "Unduh", desc: "Setelah mengunduh, Anda bisa langsung menghapus file lokal." },
+      task06: { title: "Komentar" },
+      task07: { title: "Bagikan" },
+      task08: { title: "YouNi Chart Recommendation (由你榜推荐)", desc: "Fitur rekomendasi chart QQ Music." },
+      task09: { title: "Song Boosting (推歌加热)" },
+    },
+    es: {
+      heroSub: "El Momento",
+      releasing: "Fecha de lanzamiento",
+      sec1Title: "Preparación antes del lanzamiento",
+      sec1Sub: "cosas que completar antes del lanzamiento",
+      sec2Title: "Plataformas de Streaming",
+      sec2Sub: "enlaces de reserva de canciones",
+      sec3Title: "Configuración antes del lanzamiento",
+      sec3Sub: "configuración de dispositivo & app",
+      sec4Title: "Guía de Streaming",
+      sec4Sub: "lista de tareas diarias",
+      sec5Title: "Redes Sociales",
+      sec5Sub: "cuentas oficiales de QIAN KUN",
+      card01Title: "YouNi Points (由你积分)",
+      card01Desc: "Completa todas las tareas una por una. Una vez terminadas, cambia a tu siguiente cuenta y repite el proceso.",
+      card01Note: "Tencent Music Chart es uno de los charts más importantes para apoyar el lanzamiento.",
+      card02Title: "Song Promotion Power (推歌电量)",
+      card02Desc: "Después de completar las tareas, cambia a tu siguiente cuenta y repite.",
+      card02Note: "Las tareas marcadas con un temporizador se actualizarán 4 horas después de completarse.",
+      card03Title: "Coin Center (金币中心)",
+      card03Desc: 'Gana monedas para comprar la canción.<br><strong style="color:var(--gold);">1 compra de canción = 2 RMB ≈ 14,000 monedas</strong>',
+      card03Earn: "Completa anuncios y tareas disponibles para ganar monedas.",
+      card03Note: "Los usuarios de Apple pueden tener dificultades para comprar, intenta preparar al menos 42,000 monedas (14,000 × 3) con anticipación.",
+      card04Title: "Crear Múltiples Cuentas",
+      card04Desc: "Un número de teléfono puede registrar:",
+      card04WeChat: "2 cuentas de WeChat",
+      card04QQ: "5 cuentas de QQ",
+      card05Title: "Pasos de Limpieza",
+      card06Title: "Configuración de Reproducción",
+      setup01: 'Libera espacio de almacenamiento del dispositivo',
+      setup02: 'Elimina todas las canciones descargadas de tu dispositivo',
+      setup03: 'Borra todas las listas de reproducción existentes',
+      setup04: 'Activa "允许多应用同时播放"',
+      setup05: 'Establece "边听边存" en "未开启"',
+      setup06: 'Establece "缓存上限" en "不缓存"',
+      songReservation: "Reserva de Canción",
+      qqMusicLink: "QQ Music — Página de artista de 钱锟 →",
+      openTencent: "Abrir Tencent Music Chart →",
+      openSongPower: "Abrir Song Promotion Power →",
+      resetBtn: "BORRAR VERIFICACIONES DE HOY",
+      taskFreqDaily: "Diario",
+      taskFreqOnce: "Una vez por cuenta",
+      taskFreqDailyOpt: "Diario si es posible",
+      searchTerm: "钱锟 + 那一刻心动",
+      task01: { title: "Búsqueda Manual", desc: "Busca manualmente en diferentes momentos del día." },
+      task02: { title: "Reproducción Completa ×10", desc: "No silencies el audio. No uses la repetición de una sola canción. Para el New Song Chart, solo se cuenta una reproducción completa por cuenta por hora." },
+      task03: { title: "Añadir a Favoritos" },
+      task04: { title: "Comprar la Canción", desc: "Las cuentas principales y secundarias pueden comprar varias veces. Las compras también aumentan los puntos de apoyo en la comunidad Super Topic." },
+      task05: { title: "Descargar", desc: "Después de descargar, puedes eliminar el archivo local inmediatamente." },
+      task06: { title: "Comentar" },
+      task07: { title: "Compartir" },
+      task08: { title: "YouNi Chart Recommendation (由你榜推荐)", desc: "La función de recomendación de charts de QQ Music." },
+      task09: { title: "Song Boosting (推歌加热)" },
+    },
+  };
+
+  let currentLang = 'en';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    const t = translations[lang] || translations['en'];
+
+    // Update all data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined && typeof t[key] === 'string') {
+        el.innerHTML = t[key];
+      }
+    });
+
+    // Update lang switcher button
+    const flags = { en:'🇬🇧', ko:'🇰🇷', zh:'🇨🇳', ja:'🇯🇵', th:'🇹🇭', id:'🇮🇩', es:'🇪🇸' };
+    const labels = { en:'EN', ko:'KO', zh:'ZH', ja:'JA', th:'TH', id:'ID', es:'ES' };
+    document.getElementById('langFlag').textContent = flags[lang] || '🇬🇧';
+    document.getElementById('langLabel').textContent = labels[lang] || 'EN';
+
+    // Mark active option
+    document.querySelectorAll('.lang-option').forEach(opt => {
+      opt.classList.toggle('active', opt.dataset.lang === lang);
+    });
+
+    // Re-render tasks with new language
+    renderTasks();
+  }
+
+  // Lang switcher toggle
+  document.getElementById('langBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('langSwitcher').classList.toggle('open');
+  });
+  document.addEventListener('click', () => {
+    document.getElementById('langSwitcher').classList.remove('open');
+  });
+  document.querySelectorAll('.lang-option').forEach(opt => {
+    opt.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyLang(opt.dataset.lang);
+      document.getElementById('langSwitcher').classList.remove('open');
+    });
+  });
+
+  // Apply default language
+  applyLang('en');
+</script>
 </body>
 </html>
