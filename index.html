@@ -2089,11 +2089,170 @@ We never once looked back
 Crossing through this long stretch of time and space
 
 At last, we touched that moment of heart-racing wonder`,
+  ko: `那一刻心动｜The Moment
+
+
+
+WOO WOO WOO
+
+
+
+꿈을 하나 꾸었어
+
+구름이 바람을 타고 흘러가고
+
+내 마음이 닿았어
+
+그 눈부신 빛이 흔들렸어 YEAH
+
+
+
+너무 많은 별빛이 어둠 속에 있지만
+
+누구에게든 말하고 싶어
+
+
+
+새벽이 네 눈빛을 비추는 걸 바라보며
+
+
+
+마침내 네가 인파를 헤쳐 나갈 때까지
+
+거센 폭풍 속을 지나
+
+바람과 파도가 아무리 거세도
+
+나는 너와 함께 앞으로 나아갈게
+
+
+
+빛이 별하늘에 흩날리는 걸 바라보며
+
+밤바람이 불어와 가라앉히고
+
+바람 속 그 순간의 설렘에 귀 기울여
+
+
+
+끝없이 펼쳐진 하늘을 날아
+
+마침내 네 눈 속에 닿아
+
+오직 그 순간의 설렘을 간직하기 위해
+
+
+
+유성이 떨어지는 걸 바라보며
+
+하늘의 점들을 천천히 이어
+
+이 순간이 내일로 향하는 무지개가 되게 해
+
+
+
+내일을 위해 남겨 두는
+
+SMILE OF MINE
+
+
+
+그것은 미래를 향한 가장 좋은 고백
+
+
+
+두 팔을 활짝 펼치고
+
+나만의 바다를 향해 달려가
+
+밤하늘의 별들이 모두 늦게 찾아올 때까지
+
+
+
+FLY AWAY
+
+
+
+우리는 빛을 맞으며 앞으로 날아가
+
+WE'RE FINDING OUR OWN WAY
+
+
+
+새벽이 천천히 밝아오기를 기다리며
+
+BEFORE SUNRISE
+
+
+
+빛이 별하늘에 흩날리는 걸 바라보며
+
+밤바람이 불어와 가라앉히고
+
+바람 속 그 순간의 설렘에 귀 기울여
+
+
+
+끝없이 펼쳐진 하늘을 날아
+
+마침내 네 눈 속에 닿아
+
+오직 그 순간의 설렘을 간직하기 위해
+
+
+
+I'M ON MY WAY
+
+BREAKING THE CHAIN
+
+STARS CALL MY NAME
+
+I FOUND MY WAY
+
+
+
+이 순간 시계 바늘이 마침 돌고 있어
+
+추억은 그림자처럼 흔들리고
+
+오직 그 순간의 설렘을 떠올리며
+
+
+
+그 순간, 빛이 별하늘에 흩날리고
+
+밤바람이 불어와 가라앉히고
+
+바람 속 그 순간의 설렘에 귀 기울여
+
+(그 순간의 설렘)
+
+
+
+끝없이 펼쳐진 하늘을 날아
+
+마침내 네 눈 속에 닿아
+
+오직 그 순간의 설렘을 간직하기 위해
+
+
+
+WOO WOO WOO WOO
+
+
+
+우리는 한 번도 뒤돌아본 적 없어
+
+이 긴 시공을 가로질러
+
+마침내 그 순간의 설렘과 마주했어`,
   };
 
   // Use localStorage override if user has manually saved; otherwise use default for language
   function getDefaultLyrics(lang) {
-    return lang === 'en' ? defaultLyrics.en : defaultLyrics.zh;
+    if (lang === 'en') return defaultLyrics.en;
+    if (lang === 'ko') return defaultLyrics.ko;
+    return defaultLyrics.zh;
   }
 
   let savedOriginal = localStorage.getItem('lyricsOriginal') || '';
