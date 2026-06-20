@@ -1790,7 +1790,6 @@
   const sidebarBackdrop = document.getElementById('sidebarBackdrop');
   const sidebarOpenBtn = document.getElementById('sidebarOpenBtn');
   const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
-  const lyricsEditBtn = document.getElementById('lyricsEditBtn');
   const lyricsModalOverlay = document.getElementById('lyricsModalOverlay');
   const lyricsModalClose = document.getElementById('lyricsModalClose');
   const lyricsCancelBtn = document.getElementById('lyricsCancelBtn');
@@ -2461,11 +2460,6 @@ Woo Woo Woo Woo
   sidebarBackdrop.addEventListener('click', closeSidebar);
 
   // Open modal
-  lyricsEditBtn.addEventListener('click', () => {
-    lyricsOriginalInput.value = savedOriginal;
-    lyricsTranslInput.value = savedTransl;
-    lyricsModalOverlay.classList.add('open');
-  });
 
   // Close modal
   function closeModal() { lyricsModalOverlay.classList.remove('open'); }
