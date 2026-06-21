@@ -332,7 +332,12 @@
     letter-spacing:0.02em;
   }
 
-  /* ---------- Footer ---------- */
+    .task-top{cursor:pointer;user-select:none;}
+  .task-chevron{width:8px;height:8px;border-right:1.5px solid var(--gold-soft);border-bottom:1.5px solid var(--gold-soft);transform:rotate(45deg);transition:transform 0.25s ease;flex-shrink:0;margin-left:auto;}
+  .task.collapsed .task-chevron{transform:rotate(-45deg);}
+  .task-body{overflow:hidden;transition:max-height 0.35s ease;}
+  .task.collapsed .task-body{max-height:0 !important;}
+/* ---------- Footer ---------- */
   .footer{
     margin-top:56px;
     padding:28px 18px 0;
@@ -1279,7 +1284,10 @@
           <div class="task-top">
             <span class="task-title ${isChecked ? 'checked-text' : ''}">${taskT.title || ''}</span>
             <span class="task-freq">${freqT}</span>
+          <span class="task-chevron"></span>
           </div>
+          <div class="task-body">
+
           ${taskT.desc ? `<div class="task-desc">${taskT.desc}</div>` : ''}
           ${td.hasSearch ? `<div class="search-pill">"${t.searchTerm || ''}"</div><img src="manual-search-steps.png" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}
           ${td.hasImage ? `<img src="${td.hasImage}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}
@@ -1288,7 +1296,7 @@
           ${td.hasLink ? `<a href="${td.hasLink}" class="open-link" target="_blank" rel="noopener"><span>Open &#8594;</span></a>` : ''}
           ${td.hasNote ? `<p class="task-note">${td.hasNote}</p>` : ''}
           ${td.hasImage3 ? `<img src="${td.hasImage3}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}
-          ${td.subItems ? td.subItems.map(si => `<a href="${si.link}" class="open-link" style="margin-top:8px;display:block;" target="_blank" rel="noopener"><span>${si.label} &#8594;</span></a>${si.image ? `<img src="${si.image}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}`).join('') : ''}        </div>
+          ${td.subItems ? td.subItems.map(si => `<a href="${si.link}" class="open-link" style="margin-top:8px;display:block;" target="_blank" rel="noopener"><span>${si.label} &#8594;</span></a>${si.image ? `<img src="${si.image}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}`).join('') : ''}        </div></div>
       `;
       list.appendChild(row);
     });
@@ -1297,6 +1305,7 @@
         const idx = box.dataset.idx;
         checkedState[idx] = !checkedState[idx];
         renderTasks();
+    if(typeof initTaskAccordion!=='undefined') initTaskAccordion();
       });
     });
   }
@@ -1304,10 +1313,41 @@
     document.getElementById('resetBtn').addEventListener('click', () => {
     checkedState = {};
     renderTasks();
+    if(typeof initTaskAccordion!=='undefined') initTaskAccordion();
   });
 
   renderTasks();
-</script>
+    if(typeof initTaskAccordion!=='undefined') initTaskAccordion();
+
+  
+  // Accordion toggle for task items
+  function initTaskAccordion() {
+    document.querySelectorAll('.task-body').forEach(function(body) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+    });
+  }
+  initTaskAccordion();
+  document.getElementById('taskList').addEventListener('click', function(e){
+    var top = e.target.closest('.task-top');
+    if (!top) return;
+    var task = top.closest('.task');
+    if (!task) return;
+    var body = task.querySelector('.task-body');
+    if (!body) return;
+    if (task.classList.contains('collapsed')) {
+      task.classList.remove('collapsed');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    } else {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ body.style.maxHeight = '0'; });
+      });
+      task.classList.add('collapsed');
+    }
+  });
+      task.classList.add('collapsed');
+    }
+  });</script>
 
 <footer style="text-align:center; padding:24px 0 16px; color:#8d8593; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; border-top:1px solid #2a2430; margin-top:40px;">KUN FANBASE</footer>
 
@@ -1728,6 +1768,7 @@
 
     // Re-render tasks with new language
     renderTasks();
+    if(typeof initTaskAccordion!=='undefined') initTaskAccordion();
   }
 
   // Lang switcher toggle
