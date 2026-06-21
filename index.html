@@ -3426,9 +3426,10 @@ Finalmente tocando ese latido`,
         hero.appendChild(center);
       }
       var sb=document.getElementById('sidebarNav')||document.querySelector('.sidebar-nav');
-      var mw=document.querySelector('body > .wrap');
+      var mw=document.querySelector('body > .wrap')||document.querySelector('.hero > .wrap');
       if(sb && sb.parentElement!==hero){ if(!sb._ph){ sb._ph=document.createComment('sb'); sb.parentElement.insertBefore(sb._ph,sb); } hero.insertBefore(sb, hero.firstChild); }
-      if(mw && mw.parentElement!==hero){ if(!mw._ph){ mw._ph=document.createComment('mw'); mw.parentElement.insertBefore(mw._ph,mw); } hero.appendChild(mw); }
+      if(mw){ if(mw.parentElement!==hero){ if(!mw._ph){ mw._ph=document.createComment('mw'); mw.parentElement.insertBefore(mw._ph,mw); } hero.appendChild(mw); } mw.style.display=''; }
+      hero.style.display='';
     }
     function pcLeave(){
       var hero=document.querySelector('.hero');
