@@ -1280,7 +1280,7 @@
           ${td.hasImage2 ? `<img src="${td.hasImage2}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}
 
           ${td.hasLink ? `<a href="${td.hasLink}" class="open-link" target="_blank" rel="noopener"><span>Open &#8594;</span></a>` : ''}
-          ${td.subItems ? td.subItems.map(si => `<a href="${si.link}" class="open-link" style="margin-top:8px;display:inline-block;" target="_blank" rel="noopener"><span>${si.label} &#8594;</span></a>${si.image ? `<img src="${si.image}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}`).join('') : ''}        </div>
+          ${td.subItems ? td.subItems.map(si => `<a href="${si.link}" class="open-link" style="margin-top:8px;display:block;" target="_blank" rel="noopener"><span>${si.label} &#8594;</span></a>${si.image ? `<img src="${si.image}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}`).join('') : ''}        </div>
       `;
       list.appendChild(row);
     });
