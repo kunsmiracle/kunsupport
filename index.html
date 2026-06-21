@@ -893,6 +893,78 @@
     border-radius: 3px;
     cursor: pointer;
   }
+
+  /* ===== SIDEBAR NAV ===== */
+  .page-layout{display:flex;align-items:flex-start;min-height:calc(100vh - 460px);}
+  .sidebar-nav{
+    position:sticky;top:0;height:100vh;width:220px;min-width:220px;
+    background:var(--panel);border-right:1px solid var(--panel-line);
+    display:flex;flex-direction:column;overflow-y:auto;z-index:100;
+    flex-shrink:0;
+  }
+  .sidebar-nav::-webkit-scrollbar{width:4px;}
+  .sidebar-nav::-webkit-scrollbar-thumb{background:var(--panel-line);}
+  .sidebar-logo{
+    padding:20px 18px 14px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:10px;letter-spacing:0.15em;color:var(--gold-soft);
+    border-bottom:1px solid var(--panel-line);
+    text-transform:uppercase;
+  }
+  .sidebar-logo strong{display:block;font-size:14px;color:var(--cream);letter-spacing:0.08em;font-weight:600;margin-bottom:2px;}
+  .nav-list{list-style:none;padding:10px 0;margin:0;flex:1;}
+  .nav-item{}
+  .nav-link{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 18px;font-size:12.5px;color:#c8c0b4;
+    cursor:pointer;user-select:none;
+    transition:background 0.15s,color 0.15s;
+    border:none;background:none;width:100%;text-align:left;
+    letter-spacing:0.03em;
+  }
+  .nav-link:hover{background:rgba(201,164,92,0.07);color:var(--gold);}
+  .nav-link.active{background:rgba(201,164,92,0.12);color:var(--gold);border-left:2px solid var(--gold);}
+  .nav-link-icon{font-size:10px;opacity:0.6;transition:transform 0.2s;flex-shrink:0;}
+  .nav-item.open > .nav-link .nav-link-icon{transform:rotate(90deg);}
+  .nav-sub{
+    list-style:none;padding:0;margin:0;
+    max-height:0;overflow:hidden;transition:max-height 0.3s ease;
+  }
+  .nav-item.open > .nav-sub{max-height:300px;}
+  .nav-sub-link{
+    display:block;padding:7px 18px 7px 30px;
+    font-size:11.5px;color:var(--muted);
+    cursor:pointer;transition:color 0.15s,background 0.15s;
+    border:none;background:none;width:100%;text-align:left;
+    letter-spacing:0.02em;
+  }
+  .nav-sub-link:hover{color:var(--gold-soft);background:rgba(201,164,92,0.05);}
+  .nav-sub-link.active{color:var(--gold);}
+  .nav-divider{height:1px;background:var(--panel-line);margin:6px 14px;}
+  .main-content{flex:1;min-width:0;overflow-x:hidden;}
+  .content-panel{display:none;padding:0 0 80px 0;}
+  .content-panel.active{display:block;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 24px;}
+  .sidebar-hamburger{
+    display:none;position:fixed;top:12px;left:12px;z-index:201;
+    background:var(--panel);border:1px solid var(--panel-line);
+    color:var(--cream);font-size:18px;padding:5px 10px;
+    cursor:pointer;border-radius:2px;line-height:1;
+  }
+  .sidebar-overlay{
+    display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:150;
+  }
+  .sidebar-overlay.active{display:block;}
+  @media(max-width:760px){
+    .sidebar-nav{
+      position:fixed;left:-240px;top:0;height:100%;z-index:200;
+      transition:left 0.25s ease;box-shadow:none;
+    }
+    .sidebar-nav.mobile-open{left:0;box-shadow:4px 0 20px rgba(0,0,0,0.5);}
+    .sidebar-hamburger{display:block;}
+    .page-layout{display:block;}
+    .content-panel.active{display:block;}
+  }
 </style>
 </head>
 <body>
@@ -940,9 +1012,80 @@
     <div class="release-line"><span data-i18n="releasing">Releasing</span> <strong>June 20, 6PM (CST)</strong></div>
   </div>
 
-  <div class="wrap">
+  <button class="sidebar-hamburger" id="sidebarHamburger">☰</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- ================= PRE-RELEASE PREP ================= -->
+  <div class="page-layout">
+
+    <!-- ===== SIDEBAR NAV ===== -->
+    <nav class="sidebar-nav" id="sidebarNav">
+      <div class="sidebar-logo">
+        <strong>那一刻心动</strong>
+        Pre-Release Guide
+      </div>
+      <ul class="nav-list">
+
+        <li class="nav-item" data-section="sec1">
+          <button class="nav-link" data-section="sec1">
+            <span data-i18n="sec1Title">Pre-Release Preparation</span>
+            <span class="nav-link-icon">›</span>
+          </button>
+          <ul class="nav-sub">
+            <li><button class="nav-sub-link" data-section="sec1" data-card="0" data-i18n="card1Title">YouNi Points (由你积分)</button></li>
+            <li><button class="nav-sub-link" data-section="sec1" data-card="1" data-i18n="card2Title">Song Promotion Power (推歌电量)</button></li>
+            <li><button class="nav-sub-link" data-section="sec1" data-card="2" data-i18n="card3Title">Coin Center (金币中心)</button></li>
+            <li><button class="nav-sub-link" data-section="sec1" data-card="3" data-i18n="card4Title">Creating Multiple Accounts</button></li>
+          </ul>
+        </li>
+
+        <li class="nav-item" data-section="sec-lyrics">
+          <button class="nav-link" data-section="sec-lyrics">
+            <span data-i18n="navLyrics">Lyrics</span>
+          </button>
+        </li>
+
+        <div class="nav-divider"></div>
+
+        <li class="nav-item" data-section="sec3">
+          <button class="nav-link" data-section="sec3">
+            <span data-i18n="sec3Title">Settings Before Release</span>
+            <span class="nav-link-icon">›</span>
+          </button>
+          <ul class="nav-sub">
+            <li><button class="nav-sub-link" data-section="sec3" data-card="0" data-i18n="cardCleanup">Clean-Up Steps</button></li>
+            <li><button class="nav-sub-link" data-section="sec3" data-card="1" data-i18n="cardPlayback">Playback Settings</button></li>
+          </ul>
+        </li>
+
+        <li class="nav-item" data-section="sec4">
+          <button class="nav-link" data-section="sec4">
+            <span data-i18n="sec4Title">Streaming Guide</span>
+          </button>
+        </li>
+
+        <li class="nav-item" data-section="sec5">
+          <button class="nav-link" data-section="sec5">
+            <span data-i18n="sec5Title">Social Media</span>
+          </button>
+        </li>
+
+        <div class="nav-divider"></div>
+
+        <li class="nav-item" data-section="sec2">
+          <button class="nav-link" data-section="sec2">
+            <span data-i18n="sec2Title">Music Streaming Platforms</span>
+          </button>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="main-content">
+
+      <!-- Content Panel: Pre-Release Preparation -->
+      <div class="content-panel" id="panel-sec1">
+        <div class="wrap">
     <div class="section-block">
       <div class="section-head">
         <span class="section-mark">☁ I.</span>
@@ -1046,6 +1189,13 @@
     </div>
 
     <!-- ================= OTHER STREAMING PLATFORMS ================= -->
+    
+        </div>
+      </div>
+
+      <!-- Content Panel: Music Streaming Platforms -->
+      <div class="content-panel" id="panel-sec2">
+        <div class="wrap">
     <div class="section-block">
       <div class="section-head">
         <span class="section-mark">☁ II.</span>
@@ -1080,6 +1230,13 @@
     </div>
 
     <!-- ================= SETTINGS ================= -->
+    
+        </div>
+      </div>
+
+      <!-- Content Panel: Settings Before Release -->
+      <div class="content-panel" id="panel-sec3">
+        <div class="wrap">
     <div class="section-block">
       <div class="section-head">
         <span class="section-mark">☁ III.</span>
@@ -1130,6 +1287,13 @@
     </div>
 
     <!-- ================= STREAMING GUIDE ================= -->
+    
+        </div>
+      </div>
+
+      <!-- Content Panel: Streaming Guide -->
+      <div class="content-panel" id="panel-sec4">
+        <div class="wrap">
     <div class="section-block">
       <div class="section-head">
         <span class="section-mark">☁ IV.</span>
@@ -1150,6 +1314,13 @@
       
 
     <!-- ================= SOCIAL MEDIA ================= -->
+    
+        </div>
+      </div>
+
+      <!-- Content Panel: Social Media -->
+      <div class="content-panel" id="panel-sec5">
+        <div class="wrap">
     <div class="section-block">
       <div class="section-head">
         <span class="section-mark">☁ V.</span>
@@ -1203,7 +1374,12 @@
       </div>
     </div>
 
-  </div>
+  
+        </div>
+      </div>
+
+    </div><!-- /main-content -->
+  </div><!-- /page-layout -->
 
 <script>
   // ---------- countdown ----------
@@ -1397,7 +1573,14 @@
       task07: { title: "Share" },
       task08: { title: "YouNi Chart Recommendation (由你榜推荐)", desc: "QQ Music's chart recommendation feature." },
       task09: { title: "Song Boosting (推歌加热)" },
-      task10: { title: "Top Trend Chart (巅峰潮流榜)", desc: "A chart jointly operated by QQ Music and Weibo. Rankings: 播放社交指数 40%, 商业价值指数 30%, 金币推荐指数 30%." },
+      task10: { title: "Top Trend Chart (巅峰潮流榜)", desc: "A chart jointly operated by QQ Music and Weibo. Rankings: 播放社交指数 40%, 商业价值指数 30%, 金币推荐指数 30%." },,
+      navLyrics: "Lyrics",
+      card1Title: "YouNi Points (由你积分)",
+      card2Title: "Song Promotion Power (推歌电量)",
+      card3Title: "Coin Center (金币中心)",
+      card4Title: "Creating Multiple Accounts",
+      cardCleanup: "Clean-Up Steps",
+      cardPlayback: "Playback Settings"
     },
     ko: {
       heroSub: "그 순간의 설렘",
@@ -1452,7 +1635,14 @@
       task07: { title: "공유" },
       task08: { title: "유니 차트 추천 (由你榜推荐)", desc: "QQ Music의 차트 추천 기능입니다." },
       task09: { title: "노래 부스팅 (推歌加热)" },
-      task10: { title: "탑 트렌드 차트 (巅峰潮流榜)", desc: "QQ Music과 Weibo가 연동된 차트. 播放社交指数 40%, 商业价值指数 30%, 金币推荐指数 30%." },
+      task10: { title: "탑 트렌드 차트 (巅峰潮流榜)", desc: "QQ Music과 Weibo가 연동된 차트. 播放社交指数 40%, 商业价值指数 30%, 金币推荐指数 30%." },,
+      navLyrics: "가사",
+      card1Title: "유니 포인트 (由你积分)",
+      card2Title: "노래 추진 전력 (推歌电量)",
+      card3Title: "코인 센터 (金币中心)",
+      card4Title: "멀티 계정 만들기",
+      cardCleanup: "정리 단계",
+      cardPlayback: "재생 설정"
     },
     zh: {
       heroSub: "那一刻心动",
@@ -1507,7 +1697,14 @@
       task07: { title: "分享" },
       task08: { title: "由你榜推荐", desc: "QQ音乐的榜单推荐功能。" },
       task09: { title: "推歌加热" },
-      task10: { title: "巅峰潮流榜", desc: "QQ音乐 × 微博联合榜单，播放社交指数40%，商业价值指数30%，金币推荐指数30%。" },
+      task10: { title: "巅峰潮流榜", desc: "QQ音乐 × 微博联合榜单，播放社交指数40%，商业价值指数30%，金币推荐指数30%。" },,
+      navLyrics: "歌词",
+      card1Title: "由你积分",
+      card2Title: "推歌电量",
+      card3Title: "金币中心",
+      card4Title: "注册多账号",
+      cardCleanup: "清理步骤",
+      cardPlayback: "播放设置"
     },
     ja: {
       heroSub: "あの瞬間のときめき",
@@ -1562,7 +1759,14 @@
       task07: { title: "シェア" },
       task08: { title: "YouNiチャートレコメンド（由你榜推荐）", desc: "QQ Musicのチャートレコメンド機能です。" },
       task09: { title: "ソングブースティング（推歌加热）" },
-      task10: { title: "トップトレンドチャート（巅峰潮流榜）", desc: "QQ MusicとWeiboが連携したチャート。播放社交指数40%、商业价值指数30%、金币推荐指数30%。" },
+      task10: { title: "トップトレンドチャート（巅峰潮流榜）", desc: "QQ MusicとWeiboが連携したチャート。播放社交指数40%、商业价值指数30%、金币推荐指数30%。" },,
+      navLyrics: "歌詞",
+      card1Title: "YouNiポイント (由你积分)",
+      card2Title: "推歌電量 (推歌电量)",
+      card3Title: "コインセンター (金币中心)",
+      card4Title: "複数アカウント作成",
+      cardCleanup: "クリーンアップ手順",
+      cardPlayback: "再生設定"
     },
     th: {
       heroSub: "ช่วงเวลาแห่งความตื่นเต้น",
@@ -1617,7 +1821,14 @@
       task07: { title: "แชร์" },
       task08: { title: "YouNi Chart Recommendation (由你榜推荐)", desc: "ฟีเจอร์แนะนำชาร์ตของ QQ Music" },
       task09: { title: "Song Boosting (推歌加热)" },
-      task10: { title: "Top Trend Chart (巅峰潮流榜)", desc: "ชาร์ตร่วมระหว่าง QQ Music และ Weibo 播放社交指数 40%, 商业价值指数 30%, 金币推荐指数 30%." },
+      task10: { title: "Top Trend Chart (巅峰潮流榜)", desc: "ชาร์ตร่วมระหว่าง QQ Music และ Weibo 播放社交指数 40%, 商业价值指数 30%, 金币推荐指数 30%." },,
+      navLyrics: "เนื้อเพลง",
+      card1Title: "YouNi Points (由你积分)",
+      card2Title: "Song Promotion Power (推歌电量)",
+      card3Title: "Coin Center (金币中心)",
+      card4Title: "สร้างหลายบัญชี",
+      cardCleanup: "ขั้นตอนการล้างข้อมูล",
+      cardPlayback: "การตั้งค่าการเล่น"
     },
     id: {
       heroSub: "Momen Deg-Degan",
@@ -1672,7 +1883,14 @@
       task07: { title: "Bagikan" },
       task08: { title: "YouNi Chart Recommendation (由你榜推荐)", desc: "Fitur rekomendasi chart QQ Music." },
       task09: { title: "Song Boosting (推歌加热)" },
-      task10: { title: "Top Trend Chart (巅峰潮流榜)", desc: "Chart kolaborasi QQ Music dan Weibo. 播放社交指数 40%, 商业价值指数 30%, 金币推荐指数 30%." },
+      task10: { title: "Top Trend Chart (巅峰潮流榜)", desc: "Chart kolaborasi QQ Music dan Weibo. 播放社交指数 40%, 商业价值指数 30%, 金币推荐指数 30%." },,
+      navLyrics: "Lirik",
+      card1Title: "YouNi Points (由你积分)",
+      card2Title: "Daya Promosi Lagu (推歌电量)",
+      card3Title: "Pusat Koin (金币中心)",
+      card4Title: "Membuat Banyak Akun",
+      cardCleanup: "Langkah Pembersihan",
+      cardPlayback: "Pengaturan Pemutaran"
     },
     es: {
       heroSub: "El Momento",
@@ -1727,7 +1945,14 @@
       task07: { title: "Compartir" },
       task08: { title: "YouNi Chart Recommendation (由你榜推荐)", desc: "La función de recomendación de charts de QQ Music." },
       task09: { title: "Song Boosting (推歌加热)" },
-      task10: { title: "Top Trend Chart (巅峰潮流榜)", desc: "Chart en colaboración con QQ Music y Weibo. 播放社交指数 40%, 商业价值指数 30%, 金币推荐指数 30%." },
+      task10: { title: "Top Trend Chart (巅峰潮流榜)", desc: "Chart en colaboración con QQ Music y Weibo. 播放社交指数 40%, 商业价值指数 30%, 金币推荐指数 30%." },,
+      navLyrics: "Letra",
+      card1Title: "YouNi Points (由你积分)",
+      card2Title: "Potencia de Promoción (推歌电量)",
+      card3Title: "Centro de Monedas (金币中心)",
+      card4Title: "Crear Múltiples Cuentas",
+      cardCleanup: "Pasos de Limpieza",
+      cardPlayback: "Configuración de Reproducción"
     },
   };
 
@@ -2967,6 +3192,90 @@ Finalmente tocando ese latido`,
     var v = document.getElementById('coverImg');
     if (v) { v.muted = true; v.play().catch(function(){}); }
   });
+</script>
+
+<script>
+// ===== Sidebar Navigation =====
+(function(){
+  function showPanel(sectionId, cardIdx) {
+    document.querySelectorAll('.content-panel').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.nav-link,.nav-sub-link').forEach(function(l){ l.classList.remove('active'); });
+
+    if (sectionId === 'sec-lyrics') {
+      var lyricsBtn = document.getElementById('sidebarOpenBtn');
+      if (lyricsBtn) lyricsBtn.click();
+      return;
+    }
+
+    var panel = document.getElementById('panel-' + sectionId);
+    if (!panel) return;
+    panel.classList.add('active');
+
+    document.querySelectorAll('[data-section="' + sectionId + '"]').forEach(function(el){
+      if (el.classList.contains('nav-link')) el.classList.add('active');
+    });
+
+    if (typeof cardIdx !== 'undefined') {
+      var cards = panel.querySelectorAll('.card');
+      if (cards[cardIdx]) {
+        setTimeout(function(){
+          cards[cardIdx].scrollIntoView({behavior:'smooth', block:'start'});
+          var head = cards[cardIdx].querySelector('.card-head');
+          if (head && !cards[cardIdx].classList.contains('open')) head.click();
+        }, 50);
+        document.querySelectorAll('.nav-sub-link[data-section="' + sectionId + '"][data-card="' + cardIdx + '"]').forEach(function(el){
+          el.classList.add('active');
+        });
+      }
+    }
+  }
+
+  function toggleNavItem(li) {
+    var wasOpen = li.classList.contains('open');
+    document.querySelectorAll('.nav-item.open').forEach(function(el){ el.classList.remove('open'); });
+    if (!wasOpen) li.classList.add('open');
+  }
+
+  function closeMobileSidebar() {
+    var navEl = document.getElementById('sidebarNav');
+    var overlay = document.getElementById('sidebarOverlay');
+    if (navEl) navEl.classList.remove('mobile-open');
+    if (overlay) overlay.classList.remove('active');
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.nav-link').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var sectionId = btn.getAttribute('data-section');
+        var li = btn.closest('.nav-item');
+        var hasSub = li && li.querySelector('.nav-sub');
+        if (hasSub) toggleNavItem(li);
+        showPanel(sectionId);
+        if (window.innerWidth <= 760) closeMobileSidebar();
+      });
+    });
+
+    document.querySelectorAll('.nav-sub-link').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var sectionId = btn.getAttribute('data-section');
+        var cardIdx = parseInt(btn.getAttribute('data-card'));
+        showPanel(sectionId, cardIdx);
+        if (window.innerWidth <= 760) closeMobileSidebar();
+      });
+    });
+
+    var hamburger = document.getElementById('sidebarHamburger');
+    var overlay = document.getElementById('sidebarOverlay');
+    var navEl = document.getElementById('sidebarNav');
+    if (hamburger) {
+      hamburger.addEventListener('click', function(){
+        navEl.classList.toggle('mobile-open');
+        overlay.classList.toggle('active');
+      });
+    }
+    if (overlay) overlay.addEventListener('click', closeMobileSidebar);
+  });
+})();
 </script>
 </body>
 </html>
