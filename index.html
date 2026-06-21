@@ -1251,7 +1251,7 @@
     { key:'task06', freq:'taskFreqDaily', hasImage: 'comment-steps.png' },
     { key:'task07', freq:'taskFreqDaily', hasImage: 'share-steps.png' },
     { key:'task08', freq:'taskFreqDaily', hasImage: 'youni-chart-steps.png', hasLink: 'https://h5.tencentmusic.com/grid/95062981/ht3tj0n0e00/index.html?searchid=11594736167082408046,&shareFrom=qy&hosteuin=oK6kowEAoK4z7Kolow-l7eCl7c**&ADTAG=cbshare' },
-    { key:'task09', freq:'taskFreqDaily', hasImage: 'song-promotion-power-steps.png', hasLink: 'https://c6.y.qq.com/base/fcgi-bin/u?__=jpZR7uO97Cg3' },
+    { key:'task09', freq:'taskFreqDaily', hasImage: 'song-promotion-power-steps.png', hasLink: 'https://c6.y.qq.com/base/fcgi-bin/u?__=jpZR7uO97Cg3', subItems: [{ label: 'Song Boost Station (歌曲加热站)', link: 'https://c6.y.qq.com/base/fcgi-bin/u?__=jpZR7uO97Cg3', image: 'song-boost-station-steps.png' }] },
     { key:'task10', freq:'taskFreqDaily', hasImage: 'top-trend-chart-steps.png', hasLink: 'https://c6.y.qq.com/base/fcgi-bin/u?__=nGxGueZ97Mol' },
   ];
 
@@ -1279,7 +1279,8 @@
           ${td.hasImage ? `<img src="${td.hasImage}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}
           ${td.hasImage2 ? `<img src="${td.hasImage2}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}
 
-          ${td.hasLink ? `<a href="${td.hasLink}" class="open-link" target="_blank" rel="noopener"><span>Open &#8594;</span></a>` : ''}        </div>
+          ${td.hasLink ? `<a href="${td.hasLink}" class="open-link" target="_blank" rel="noopener"><span>Open &#8594;</span></a>` : ''}
+          ${td.subItems ? td.subItems.map(si => `<a href="${si.link}" class="open-link" style="margin-top:8px;display:inline-block;" target="_blank" rel="noopener"><span>${si.label} &#8594;</span></a>${si.image ? `<img src="${si.image}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}`).join('') : ''}        </div>
       `;
       list.appendChild(row);
     });
