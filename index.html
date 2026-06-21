@@ -316,6 +316,12 @@
     color:var(--muted);
     line-height:1.7;
   }
+  .task-note{
+    margin-top:6px;
+    font-size:12.5px;
+    color:var(--gold-soft);
+    line-height:1.7;
+  }
   .search-pill{
     display:inline-block;
     margin-top:6px;
@@ -1252,7 +1258,7 @@
     { key:'task07', freq:'taskFreqDaily', hasImage: 'share-steps.png' },
     { key:'task08', freq:'taskFreqDaily', hasImage: 'youni-chart-steps.png', hasLink: 'https://h5.tencentmusic.com/grid/95062981/ht3tj0n0e00/index.html?searchid=11594736167082408046,&shareFrom=qy&hosteuin=oK6kowEAoK4z7Kolow-l7eCl7c**&ADTAG=cbshare' },
     { key:'task09', freq:'taskFreqDaily', hasImage: 'song-promotion-power-steps.png', hasLink: 'https://c6.y.qq.com/base/fcgi-bin/u?__=jpZR7uO97Cg3', subItems: [{ label: 'Song Boost Station (歌曲加热站)', link: 'https://c6.y.qq.com/base/fcgi-bin/u?__=jpZR7uO97Cg3', image: 'song-boost-station-steps.png' }, { label: 'Light Up Together (一起点亮)', link: 'https://c6.y.qq.com/base/fcgi-bin/u?__=nwN0mT897zaj', image: 'light-up-together-steps.png' }] },
-    { key:'task10', freq:'taskFreqDaily', hasImage: 'top-trend-chart-steps.png', hasLink: 'https://c6.y.qq.com/base/fcgi-bin/u?__=nGxGueZ97Mol' },
+    { key:'task10', freq:'taskFreqDaily', hasImage: 'top-trend-chart-steps.png', hasLink: 'https://c6.y.qq.com/base/fcgi-bin/u?__=mIh0I5q97KoJ', hasNote: 'You can also participate in the lucky draw by contributing coins.' },
   ];
 
   let checkedState = {};
@@ -1280,6 +1286,7 @@
           ${td.hasImage2 ? `<img src="${td.hasImage2}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}
 
           ${td.hasLink ? `<a href="${td.hasLink}" class="open-link" target="_blank" rel="noopener"><span>Open &#8594;</span></a>` : ''}
+          ${td.hasNote ? `<p class="task-note">${td.hasNote}</p>` : ''}
           ${td.subItems ? td.subItems.map(si => `<a href="${si.link}" class="open-link" style="margin-top:8px;display:block;" target="_blank" rel="noopener"><span>${si.label} &#8594;</span></a>${si.image ? `<img src="${si.image}" style="width:100%;max-width:480px;border-radius:10px;margin-top:10px;display:block;">` : ''}`).join('') : ''}        </div>
       `;
       list.appendChild(row);
