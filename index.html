@@ -1015,32 +1015,26 @@
     .hero-sub{font-size:18px;}
     .hero-eyebrow{font-size:12px;}
 
-    /* ===== PC main-page: fixed sidebar left (aligned to video), Music Streaming right ===== */
-    body.home .page-layout{
-      position:relative;
-      max-width:1040px;
-      margin:28px auto 0;
-      padding:0 48px;
-      box-sizing:border-box;
-      display:block;
-    }
-    body.home .sidebar-nav{
-      position:absolute;
-      left:48px;
-      top:0;
-      width:360px;
-      min-width:360px;
-      max-width:360px;
-      box-sizing:border-box;
-    }
+    /* ===== PC main-page: single horizontal row -> sidebar | video | Music Streaming ===== */
+    body.home .page-layout{ max-width:none; margin:0; padding:0; position:static; }
+    body.home .sidebar-nav{ position:static; left:auto; top:auto; width:auto; min-width:0; max-width:none; }
     body.home .main-content{ display:none; }
-    body.home > .wrap{
-      max-width:1040px;
-      width:100%;
-      margin:28px auto 0;
-      padding:0 48px 0 456px;
-      box-sizing:border-box;
+    body.home > .wrap{ max-width:none; margin:0; padding:0; width:auto; }
+    body.home .hero{
+      max-width:1200px;
+      margin:0 auto;
+      padding:40px 32px;
+      display:grid;
+      grid-template-columns:280px minmax(360px,440px) 1fr;
+      column-gap:36px;
+      align-items:center;
+      justify-content:center;
     }
+    body.home .hero .sidebar-nav{ grid-column:1; align-self:center; border-right:none; }
+    body.home .hero .hero-center{ grid-column:2; display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px; }
+    body.home .hero .hero-center .cover-wrap{ width:100%; max-width:380px; margin:0 0 14px; order:-1; }
+    body.home .hero .hero-center .countdown{ justify-content:center; }
+    body.home .hero > .wrap{ grid-column:3; align-self:center; }
   }
 </style>
 </head>
@@ -3296,6 +3290,7 @@ Finalmente tocando ese latido`,
 (function(){
   function showPanel(sectionId, cardIdx) {
     document.body.classList.remove('home');
+    window._pcLeave && window._pcLeave();
     // Hide hero and music section when any panel is shown
     document.querySelector('.hero') && (document.querySelector('.hero').style.display = 'none');
     document.querySelector('body > .wrap') && (document.querySelector('body > .wrap').style.display = 'none');
@@ -3400,6 +3395,7 @@ Finalmente tocando ese latido`,
   (function(){
     function goHome() {
       document.body.classList.add('home');
+      window._pcEnter && window._pcEnter();
       // Show hero and music streaming sections
       var hero = document.querySelector('.hero');
       if (hero) hero.style.display = '';
@@ -3416,5 +3412,39 @@ Finalmente tocando ese latido`,
     if (menuBtn) menuBtn.addEventListener('click', goHome);
   })();
 </script>
+  <!-- ===== PC desktop single-row layout (sidebar | video | Music Streaming) ===== -->
+  <script>
+  (function(){
+    function pcEnter(){
+      if(window.innerWidth<1024) return;
+      if(!document.body.classList.contains('home')) return;
+      var hero=document.querySelector('.hero'); if(!hero) return;
+      if(!hero.querySelector('.hero-center')){
+        var center=document.createElement('div'); center.className='hero-center';
+        var sels=['.hero-eyebrow','.cover-wrap','.hero-title','.hero-sub','.release-done','.countdown','.release-line'];
+        sels.forEach(function(s){ var el=hero.querySelector(':scope > '+s); if(el) center.appendChild(el); });
+        hero.appendChild(center);
+      }
+      var sb=document.getElementById('sidebarNav')||document.querySelector('.sidebar-nav');
+      var mw=document.querySelector('body > .wrap');
+      if(sb && sb.parentElement!==hero){ if(!sb._ph){ sb._ph=document.createComment('sb'); sb.parentElement.insertBefore(sb._ph,sb); } hero.insertBefore(sb, hero.firstChild); }
+      if(mw && mw.parentElement!==hero){ if(!mw._ph){ mw._ph=document.createComment('mw'); mw.parentElement.insertBefore(mw._ph,mw); } hero.appendChild(mw); }
+    }
+    function pcLeave(){
+      var hero=document.querySelector('.hero');
+      var sb=document.getElementById('sidebarNav')||document.querySelector('.sidebar-nav');
+      var mw=hero?hero.querySelector(':scope > .wrap'):null;
+      if(sb && sb._ph){ sb._ph.parentElement.insertBefore(sb, sb._ph); }
+      if(mw && mw._ph){ mw._ph.parentElement.insertBefore(mw, mw._ph); }
+      var center=hero?hero.querySelector('.hero-center'):null;
+      if(center){ while(center.firstChild) hero.insertBefore(center.firstChild, center); center.remove(); }
+    }
+    window._pcEnter=pcEnter; window._pcLeave=pcLeave;
+    function pcSync(){ if(window.innerWidth>=1024 && document.body.classList.contains('home')) pcEnter(); else pcLeave(); }
+    window._pcSync=pcSync;
+    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', pcSync); } else { pcSync(); }
+    var _rt; window.addEventListener('resize', function(){ clearTimeout(_rt); _rt=setTimeout(pcSync, 150); });
+  })();
+  </script>
 </body>
 </html>
