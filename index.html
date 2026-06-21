@@ -3136,6 +3136,10 @@ Finalmente tocando ese latido`,
       lyricsPlaceholder.style.display = 'block';
       lyricsContent.style.display = 'none';
     }
+    // Keep the lyrics panel (main content) in sync with the sidebar lyrics
+    var _dstBody = document.getElementById('lyricsBodyPanel');
+    var _srcBody = document.getElementById('lyricsBody');
+    if (_dstBody && _srcBody) { _dstBody.innerHTML = _srcBody.innerHTML; }
   }
 
     // Open / close sidebar
@@ -3226,7 +3230,7 @@ Finalmente tocando ese latido`,
   function showPanel(sectionId, cardIdx) {
     // Hide hero and music section when any panel is shown
     document.querySelector('.hero') && (document.querySelector('.hero').style.display = 'none');
-    document.querySelector('.wrap') && (document.querySelector('.wrap').style.display = 'none');
+    document.querySelector('body > .wrap') && (document.querySelector('body > .wrap').style.display = 'none');
     document.querySelectorAll('.content-panel').forEach(function(p){ p.classList.remove('active'); });
     document.querySelectorAll('.nav-link,.nav-sub-link').forEach(function(l){ l.classList.remove('active'); });
 
@@ -3330,7 +3334,7 @@ Finalmente tocando ese latido`,
       // Show hero and music streaming sections
       var hero = document.querySelector('.hero');
       if (hero) hero.style.display = '';
-      var wrap = document.querySelector('.wrap');
+      var wrap = document.querySelector('body > .wrap');
       if (wrap) wrap.style.display = '';
       // Hide all content panels
       document.querySelectorAll('.content-panel').forEach(function(p){ p.classList.remove('active'); });
