@@ -975,6 +975,46 @@
     .page-layout{display:block;}
     .content-panel.active{display:block;}
   }
+
+  /* ===== PC / Desktop layout (>=1024px). Mobile is unchanged. ===== */
+  @media (min-width:1024px){
+    /* Wider, more comfortable content column */
+    .wrap{max-width:880px;}
+
+    /* Hero becomes a two-column desktop layout: cover left, text right */
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(300px,380px) 1fr;
+      column-gap:56px;
+      align-items:center;
+      justify-content:center;
+      max-width:1040px;
+      margin:0 auto;
+      padding:72px 48px 56px;
+      text-align:left;
+    }
+    .hero > .cover-wrap{
+      grid-column:1;
+      grid-row:1 / span 7;
+      max-width:380px;
+      margin:0;
+      align-self:center;
+    }
+    .hero > .hero-eyebrow,
+    .hero > .hero-title,
+    .hero > .hero-sub,
+    .hero > .release-done,
+    .hero > .countdown,
+    .hero > .release-line{
+      grid-column:2;
+      margin-left:0;
+      margin-right:0;
+    }
+    .hero > .countdown{justify-content:flex-start;}
+    .hero-title{font-size:clamp(40px,3.4vw,56px);}
+    .hero-sub{font-size:18px;}
+    .hero-eyebrow{font-size:12px;}
+  }
 </style>
 </head>
 <body>
