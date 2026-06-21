@@ -914,7 +914,7 @@
     <div class="hero-eyebrow">KUN SOLO</div>
 
     <div class="cover-wrap">
-      <video class="cover-img" id="coverImg" autoplay loop muted playsinline preload="auto" style="display:block;"></video>
+      <video class="cover-img" id="coverImg" src="cover.mp4" autoplay loop muted playsinline preload="auto" style="display:block;"></video>
     </div>
 
     <h1 class="hero-title">那一刻心动</h1>
@@ -2932,17 +2932,10 @@ Finalmente tocando ese latido`,
 </script>
 
 <script>
-  (function(){
+  document.addEventListener('DOMContentLoaded', function() {
     var v = document.getElementById('coverImg');
-    if(!v) return;
-    var filename = '[BraveDown.Com] [錢锏KUN工作室的微博视频] [1782019189] .MP4';
-    v.src = encodeURIComponent(filename);
-    v.muted = true;
-    v.load();
-    var tryPlay = function(){ var p = v.play(); if(p) p.catch(function(){}); };
-    v.addEventListener('loadeddata', tryPlay);
-    v.addEventListener('canplay', tryPlay);
-  })();
+    if (v) { v.muted = true; v.play().catch(function(){}); }
+  });
 </script>
 </body>
 </html>
