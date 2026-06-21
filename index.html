@@ -1014,10 +1014,37 @@
     .hero-title{font-size:clamp(40px,3.4vw,56px);}
     .hero-sub{font-size:18px;}
     .hero-eyebrow{font-size:12px;}
+
+    /* ===== PC main-page: fixed sidebar left (aligned to video), Music Streaming right ===== */
+    body.home .page-layout{
+      position:relative;
+      max-width:1040px;
+      margin:28px auto 0;
+      padding:0 48px;
+      box-sizing:border-box;
+      display:block;
+    }
+    body.home .sidebar-nav{
+      position:absolute;
+      left:48px;
+      top:0;
+      width:360px;
+      min-width:360px;
+      max-width:360px;
+      box-sizing:border-box;
+    }
+    body.home .main-content{ display:none; }
+    body.home > .wrap{
+      max-width:1040px;
+      width:100%;
+      margin:28px auto 0;
+      padding:0 48px 0 456px;
+      box-sizing:border-box;
+    }
   }
 </style>
 </head>
-<body>
+<body class="home">
 
   <!-- ===== Language Switcher ===== -->
   <div class="lang-switcher" id="langSwitcher">
@@ -3268,6 +3295,7 @@ Finalmente tocando ese latido`,
 // ===== Sidebar Navigation =====
 (function(){
   function showPanel(sectionId, cardIdx) {
+    document.body.classList.remove('home');
     // Hide hero and music section when any panel is shown
     document.querySelector('.hero') && (document.querySelector('.hero').style.display = 'none');
     document.querySelector('body > .wrap') && (document.querySelector('body > .wrap').style.display = 'none');
@@ -3371,6 +3399,7 @@ Finalmente tocando ese latido`,
   // ===== MENU button: return to main page =====
   (function(){
     function goHome() {
+      document.body.classList.add('home');
       // Show hero and music streaming sections
       var hero = document.querySelector('.hero');
       if (hero) hero.style.display = '';
