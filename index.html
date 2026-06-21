@@ -895,7 +895,7 @@
   }
 
   /* ===== SIDEBAR NAV ===== */
-  .page-layout{display:flex;align-items:flex-start;min-height:calc(100vh - 460px);}
+  .page-layout{display:flex;align-items:flex-start;min-height:0;}
   .sidebar-nav{
     position:sticky;top:0;height:100vh;width:220px;min-width:220px;
     background:var(--panel);border-right:1px solid var(--panel-line);
@@ -1019,9 +1019,7 @@
 
     <!-- ===== SIDEBAR NAV ===== -->
     <nav class="sidebar-nav" id="sidebarNav">
-      <div class="sidebar-logo">
-        Pre-Release Guide
-      </div>
+      
       <ul class="nav-list">
 
         <li class="nav-item" data-section="sec1">
@@ -1331,6 +1329,35 @@
         </div>
 
 
+      </div>
+      <!-- Content Panel: Lyrics -->
+      <div class="content-panel" id="panel-sec-lyrics">
+        <div class="wrap">
+          <div class="section-block">
+            <div class="section-head">
+              <span class="section-mark">♪</span>
+              <div class="section-title" data-i18n="sidebarTitle">Lyrics
+                <small data-i18n="sidebarSub">那一刻心动</small>
+              </div>
+            </div>
+            <div class="lyrics-body" id="lyricsBodyPanel">
+              <div class="lyrics-placeholder" id="lyricsPlaceholderPanel" data-i18n="lyricsPlaceholder">
+                Lyrics will appear here.<br>Click Edit to add.
+              </div>
+              <div id="lyricsContentPanel">
+                <div class="lyrics-section">
+                  <div class="lyrics-line" id="lyricsOriginalTextPanel"></div>
+                </div>
+                <div class="lyrics-section" id="lyricsTranslSectionPanel">
+                  <div class="lyrics-label" data-i18n="lyricsTranslation">Translation</div>
+                  <div class="lyrics-line" id="lyricsTranslTextPanel"></div>
+                </div>
+              </div>
+            </div>
+            <button class="edit-lyrics-btn" id="lyricsEditBtnPanel" data-i18n="lyricsEdit">✎  Edit Lyrics</button>
+          </div>
+        </div>
+      </div>
     </div><!-- /main-content -->
   </div><!-- /page-layout -->
 
@@ -3187,14 +3214,13 @@ Finalmente tocando ese latido`,
 // ===== Sidebar Navigation =====
 (function(){
   function showPanel(sectionId, cardIdx) {
+    // Hide hero and music section when any panel is shown
+    document.querySelector('.hero') && (document.querySelector('.hero').style.display = 'none');
+    document.querySelector('.wrap') && (document.querySelector('.wrap').style.display = 'none');
     document.querySelectorAll('.content-panel').forEach(function(p){ p.classList.remove('active'); });
     document.querySelectorAll('.nav-link,.nav-sub-link').forEach(function(l){ l.classList.remove('active'); });
 
-    if (sectionId === 'sec-lyrics') {
-      var lyricsBtn = document.getElementById('sidebarOpenBtn');
-      if (lyricsBtn) lyricsBtn.click();
-      return;
-    }
+
 
     var panel = document.getElementById('panel-' + sectionId);
     if (!panel) return;
@@ -3216,6 +3242,13 @@ Finalmente tocando ese latido`,
           el.classList.add('active');
         });
       }
+    }
+
+    // Sync lyrics content to panel when lyrics panel shown
+    if (sectionId === 'sec-lyrics') {
+      var srcBody = document.getElementById('lyricsBody');
+      var dstBody = document.getElementById('lyricsBodyPanel');
+      if (srcBody && dstBody) { dstBody.innerHTML = srcBody.innerHTML; }
     }
   }
 
@@ -3265,6 +3298,19 @@ Finalmente tocando ese latido`,
     if (overlay) overlay.addEventListener('click', closeMobileSidebar);
   });
 })();
+</script>
+
+<script>
+  // Wire up lyricsEditBtnPanel to open the lyrics edit modal
+  document.addEventListener('DOMContentLoaded', function() {
+    var editBtnPanel = document.getElementById('lyricsEditBtnPanel');
+    if (editBtnPanel) {
+      editBtnPanel.addEventListener('click', function() {
+        var overlay = document.getElementById('lyricsModalOverlay');
+        if (overlay) overlay.style.display = 'flex';
+      });
+    }
+  });
 </script>
 </body>
 </html>
