@@ -1316,7 +1316,7 @@
     if(typeof initTaskAccordion!=='undefined') initTaskAccordion();
   });
 
-  renderTasks();
+  try { renderTasks(); } catch(e) {}
     if(typeof initTaskAccordion!=='undefined') initTaskAccordion();
 
   
