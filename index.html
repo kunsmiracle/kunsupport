@@ -333,10 +333,10 @@
   }
 
     .task-top{cursor:pointer;user-select:none;}
-  .task-chevron{width:8px;height:8px;border-right:1.5px solid var(--gold-soft);border-bottom:1.5px solid var(--gold-soft);transform:rotate(45deg);transition:transform 0.25s ease;flex-shrink:0;margin-left:auto;}
-  .task.collapsed .task-chevron{transform:rotate(-45deg);}
-  .task-body{overflow:hidden;transition:max-height 0.35s ease;}
-  .task.collapsed .task-body{max-height:0 !important;}
+  .task-chevron{width:8px;height:8px;border-right:1.5px solid var(--gold-soft);border-bottom:1.5px solid var(--gold-soft);transform:rotate(-45deg);transition:transform 0.25s ease;flex-shrink:0;margin-left:auto;}
+  .task.open .task-chevron{transform:rotate(45deg);}
+  .task-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease;}
+  .task.open .task-body{max-height:none;}
 /* ---------- Footer ---------- */
   .footer{
     margin-top:56px;
@@ -1321,28 +1321,20 @@
 
   
   // Accordion toggle for task items
-  function initTaskAccordion() {
-    document.querySelectorAll('.task-body').forEach(function(body) {
-      body.style.maxHeight = body.scrollHeight + 'px';
-    });
-  }
-  initTaskAccordion();
   document.getElementById('taskList').addEventListener('click', function(e){
     var top = e.target.closest('.task-top');
-    if (!top) return;
+    if(!top) return;
     var task = top.closest('.task');
-    if (!task) return;
+    if(!task) return;
     var body = task.querySelector('.task-body');
-    if (!body) return;
-    if (task.classList.contains('collapsed')) {
-      task.classList.remove('collapsed');
-      body.style.maxHeight = body.scrollHeight + 'px';
+    if(!body) return;
+    if(task.classList.contains('open')){
+      task.classList.remove('open');
+      body.style.maxHeight = '0';
     } else {
+      task.classList.add('open');
       body.style.maxHeight = body.scrollHeight + 'px';
-      requestAnimationFrame(function(){
-        requestAnimationFrame(function(){ body.style.maxHeight = '0'; });
-      });
-      task.classList.add('collapsed');
+      setTimeout(function(){ body.style.maxHeight = 'none'; }, 360);
     }
   });
 </script>
