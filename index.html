@@ -912,6 +912,16 @@
     text-transform:uppercase;
   }
   .sidebar-logo strong{display:block;font-size:14px;color:var(--cream);letter-spacing:0.08em;font-weight:600;margin-bottom:2px;}
+  .menu-home-btn{
+    display:block;width:calc(100% - 24px);margin:12px 12px 4px;
+    padding:9px 14px;background:rgba(201,164,92,0.12);
+    border:1px solid var(--gold-soft);border-radius:4px;
+    color:var(--gold);font-family:'Cormorant Garamond',serif;
+    font-size:13px;letter-spacing:0.18em;font-weight:600;
+    cursor:pointer;text-align:center;text-transform:uppercase;
+    transition:background 0.15s,border-color 0.15s;
+  }
+  .menu-home-btn:hover{background:rgba(201,164,92,0.22);border-color:var(--gold);}
   .nav-list{list-style:none;padding:10px 0;margin:0;flex:1;}
   .nav-item{}
   .nav-link{
@@ -972,18 +982,17 @@
   <!-- ===== Language Switcher ===== -->
   <div class="lang-switcher" id="langSwitcher">
     <button class="lang-btn" id="langBtn">
-      <span id="langFlag">🇬🇧</span>
       <span id="langLabel">EN</span>
       <span>▾</span>
     </button>
     <div class="lang-dropdown" id="langDropdown">
-      <div class="lang-option active" data-lang="en"><span class="lang-flag">🇬🇧</span> English</div>
-      <div class="lang-option" data-lang="ko"><span class="lang-flag">🇰🇷</span> Korean</div>
-      <div class="lang-option" data-lang="zh"><span class="lang-flag">🇨🇳</span> Chinese</div>
-      <div class="lang-option" data-lang="ja"><span class="lang-flag">🇯🇵</span> Japanese</div>
-      <div class="lang-option" data-lang="th"><span class="lang-flag">🇹🇭</span> Thai</div>
-      <div class="lang-option" data-lang="id"><span class="lang-flag">🇮🇩</span> Indonesian</div>
-      <div class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Spanish</div>
+      <div class="lang-option active" data-lang="en">English</div>
+      <div class="lang-option" data-lang="ko">Korean</div>
+      <div class="lang-option" data-lang="zh">Chinese</div>
+      <div class="lang-option" data-lang="ja">Japanese</div>
+      <div class="lang-option" data-lang="th">Thai</div>
+      <div class="lang-option" data-lang="id">Indonesian</div>
+      <div class="lang-option" data-lang="es">Spanish</div>
     </div>
   </div>
 
@@ -1020,6 +1029,7 @@
     <!-- ===== SIDEBAR NAV ===== -->
     <nav class="sidebar-nav" id="sidebarNav">
       
+      <button class="menu-home-btn" id="menuHomeBtn" data-i18n="menuHome">MENU</button>
       <ul class="nav-list">
 
         <li class="nav-item" data-section="sec1">
@@ -1992,7 +2002,7 @@
     // Update lang switcher button
     const flags = { en:'🇬🇧', ko:'🇰🇷', zh:'🇨🇳', ja:'🇯🇵', th:'🇹🇭', id:'🇮🇩', es:'🇪🇸' };
     const labels = { en:'EN', ko:'KO', zh:'ZH', ja:'JA', th:'TH', id:'ID', es:'ES' };
-    document.getElementById('langFlag').textContent = flags[lang] || '🇬🇧';
+    var _lf = document.getElementById('langFlag'); if (_lf) _lf.textContent = flags[lang] || '';
     document.getElementById('langLabel').textContent = labels[lang] || 'EN';
 
     // Mark active option
@@ -3132,17 +3142,17 @@ Finalmente tocando ese latido`,
   function openSidebar() {
     sidebar.classList.add('open');
     sidebarBackdrop.classList.add('open');
-    sidebarOpenBtn.classList.add('hidden');
+    sidebarOpenBtn && sidebarOpenBtn.classList.add('hidden');
   }
   function closeSidebar() {
     sidebar.classList.remove('open');
     sidebarBackdrop.classList.remove('open');
-    sidebarOpenBtn.classList.remove('hidden');
+    sidebarOpenBtn && sidebarOpenBtn.classList.remove('hidden');
   }
 
-  sidebarOpenBtn.addEventListener('click', openSidebar);
-  sidebarCloseBtn.addEventListener('click', closeSidebar);
-  sidebarBackdrop.addEventListener('click', closeSidebar);
+  sidebarOpenBtn && sidebarOpenBtn.addEventListener('click', openSidebar);
+  sidebarCloseBtn && sidebarCloseBtn.addEventListener('click', closeSidebar);
+  sidebarBackdrop && sidebarBackdrop.addEventListener('click', closeSidebar);
 
   // Open modal
 
@@ -3311,6 +3321,27 @@ Finalmente tocando ese latido`,
       });
     }
   });
+</script>
+
+<script>
+  // ===== MENU button: return to main page =====
+  (function(){
+    function goHome() {
+      // Show hero and music streaming sections
+      var hero = document.querySelector('.hero');
+      if (hero) hero.style.display = '';
+      var wrap = document.querySelector('.wrap');
+      if (wrap) wrap.style.display = '';
+      // Hide all content panels
+      document.querySelectorAll('.content-panel').forEach(function(p){ p.classList.remove('active'); });
+      // Clear active nav states
+      document.querySelectorAll('.nav-link, .nav-sub-link').forEach(function(n){ n.classList.remove('active'); });
+      document.querySelectorAll('.nav-item.open').forEach(function(n){ n.classList.remove('open'); });
+      window.scrollTo(0, 0);
+    }
+    var menuBtn = document.getElementById('menuHomeBtn');
+    if (menuBtn) menuBtn.addEventListener('click', goHome);
+  })();
 </script>
 </body>
 </html>
