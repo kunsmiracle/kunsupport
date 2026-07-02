@@ -3426,12 +3426,12 @@ Finalmente tocando ese latido`,
     function goHome() {
       document.body.classList.add('home');
       window._pcEnter && window._pcEnter();
-      if(window.__applyView) window.__applyView('feellove');
       // Show hero and music streaming sections
       var hero = document.querySelector('.hero');
       if (hero) hero.style.display = '';
       var wrap = document.querySelector('body > .wrap');
       if (wrap) wrap.style.display = '';
+      if(window.__applyView) window.__applyView('feellove');
       // Hide all content panels
       document.querySelectorAll('.content-panel').forEach(function(p){ p.classList.remove('active'); });
       // Clear active nav states
@@ -3489,6 +3489,7 @@ Finalmente tocando ese latido`,
       var relStrong=document.querySelector('.release-line strong');
       var cd=document.getElementById('countdown');
       var done=document.getElementById('releaseDone');
+      var music=document.querySelector('.hero > .wrap');
       if(view==='nayike'){
         if(vid && vid.getAttribute('src')!=='cover.mp4'){ vid.setAttribute('src','cover.mp4'); vid.load&&vid.load(); playVid(vid); }
         if(vid){ vid.style.objectPosition='center'; }
@@ -3497,6 +3498,7 @@ Finalmente tocando ese latido`,
         if(relStrong){ relStrong.textContent='June 20, 6PM (CST)'; }
         if(cd){ cd.style.display='none'; }
         if(done){ done.style.display='block'; }
+        if(music){ music.style.display=''; }
       } else {
         if(vid && vid.getAttribute('src')!=='FeelLoveandTalk.mov'){ vid.setAttribute('src','FeelLoveandTalk.mov'); vid.load&&vid.load(); playVid(vid); }
         if(vid){ vid.style.objectPosition='top'; }
@@ -3505,6 +3507,7 @@ Finalmente tocando ese latido`,
         if(relStrong){ relStrong.textContent='July 4, 6PM (CST)'; }
         if(cd){ cd.style.display=''; }
         if(done){ done.style.display='none'; }
+        if(music){ music.style.display='none'; }
       }
     };
     window.__showNaYiKe = function(){
