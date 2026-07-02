@@ -3489,7 +3489,7 @@ Finalmente tocando ese latido`,
       var relStrong=document.querySelector('.release-line strong');
       var cd=document.getElementById('countdown');
       var done=document.getElementById('releaseDone');
-      var music=document.querySelector('.hero > .wrap');
+      var music=document.querySelector('.hero > .wrap')||document.querySelector('body > .wrap');
       if(view==='nayike'){
         if(vid && vid.getAttribute('src')!=='cover.mp4'){ vid.setAttribute('src','cover.mp4'); vid.load&&vid.load(); playVid(vid); }
         if(vid){ vid.style.objectPosition='center'; }
