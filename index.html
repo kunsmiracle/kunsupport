@@ -1450,7 +1450,6 @@
                 </div>
               </div>
             </div>
-            <button class="edit-lyrics-btn" id="lyricsEditBtnPanel" data-i18n="lyricsEdit">✎  Edit Lyrics</button>
           </div>
         </div>
       </div>
@@ -3407,18 +3406,7 @@ Finalmente tocando ese latido`,
 })();
 </script>
 
-<script>
-  // Wire up lyricsEditBtnPanel to open the lyrics edit modal
-  document.addEventListener('DOMContentLoaded', function() {
-    var editBtnPanel = document.getElementById('lyricsEditBtnPanel');
-    if (editBtnPanel) {
-      editBtnPanel.addEventListener('click', function() {
-        var overlay = document.getElementById('lyricsModalOverlay');
-        if (overlay) overlay.style.display = 'flex';
-      });
-    }
-  });
-</script>
+
 
 <script>
   // ===== MENU button: return to main page =====
