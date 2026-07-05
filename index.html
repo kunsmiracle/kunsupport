@@ -1472,7 +1472,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" id="streamCardNayike">
         <div class="social-group-title" data-i18n="songReservation">Now Available</div>
         <a class="link-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=hxul6XqH7Kcz" target="_blank" rel="noopener">
           <div class="link-text"><div class="link-title">QQ音乐</div></div>
@@ -1499,6 +1499,33 @@
           <span class="link-arrow">→</span>
         </a>
       </div>
+        <div class="card" id="streamCardFeelLove" style="display:none;">
+            <div class="social-group-title" data-i18n="songReservation">Now Available</div>
+          <a class="link-item" href="https://c6.y.qq.com/base/fcgi-bin/u?__=DyDwMt7QHfx8" target="_blank" rel="noopener">
+              <div class="link-text"><div class="link-title">QQ音乐</div></div>
+            <span class="link-arrow">→</span>
+          </a>
+          <a class="link-item" href="https://m.kugou.com/share/song.html?chain=1vYZhc8G3V2" target="_blank" rel="noopener">
+              <div class="link-text"><div class="link-title">酷狗音乐</div></div>
+            <span class="link-arrow">→</span>
+          </a>
+          <a class="link-item" href="https://m.kuwo.cn/yinyue/611989147?f=ip&t=usercopy&h5limitfree=1&loginuid=B4VOikghZT3NO9EASknnzw==" target="_blank" rel="noopener">
+              <div class="link-text"><div class="link-title">酷我音乐</div></div>
+            <span class="link-arrow">→</span>
+          </a>
+          <div class="link-item" style="opacity:.5; cursor:default; pointer-events:none;">
+              <div class="link-text"><div class="link-title">网易云音乐</div></div>
+            <span class="link-arrow">Coming Soon</span>
+          </div>
+          <a class="link-item" href="https://qishui.douyin.com/s/iCFGpeeg/" target="_blank" rel="noopener">
+              <div class="link-text"><div class="link-title">汽水音乐</div></div>
+            <span class="link-arrow">→</span>
+          </a>
+          <a class="link-item" href="https://music.apple.com/cn/album/feel-love-and-talk/6786602442?i=6786602444&l=en-GB" target="_blank" rel="noopener">
+              <div class="link-text"><div class="link-title">Apple Music</div></div>
+            <span class="link-arrow">→</span>
+          </a>
+        </div>
     </div>
 
     <!-- ================= SETTINGS ================= -->
@@ -3494,6 +3521,7 @@ Finalmente tocando ese latido`,
         if(cd){ cd.style.display='none'; }
         if(done){ done.style.display='block'; }
         if(music){ music.style.display=''; }
+        var cardN=document.getElementById('streamCardNayike'); if(cardN) cardN.style.display=''; var cardF=document.getElementById('streamCardFeelLove'); if(cardF) cardF.style.display='none';
       } else {
         if(vid && vid.getAttribute('src')!=='FeelLoveandTalk.mov'){ vid.setAttribute('src','FeelLoveandTalk.mov'); vid.load&&vid.load(); playVid(vid); }
         if(vid){ vid.style.objectPosition='top'; }
@@ -3502,7 +3530,8 @@ Finalmente tocando ese latido`,
         if(relStrong){ relStrong.textContent='July 4, 6PM (CST)'; }
         if(cd){ cd.style.display=''; }
         if(done){ done.style.display='none'; }
-        if(music){ music.style.display='none'; }
+        if(music){ music.style.display=''; }
+        var cardN=document.getElementById('streamCardNayike'); if(cardN) cardN.style.display='none'; var cardF=document.getElementById('streamCardFeelLove'); if(cardF) cardF.style.display='';
       }
     };
     window.__showNaYiKe = function(){
