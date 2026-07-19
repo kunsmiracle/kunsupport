@@ -3588,11 +3588,13 @@ var cardN=document.getElementById('streamCardNayike');
 var cardF=document.getElementById('streamCardFeelLove');
 var cardT=document.getElementById('streamCardTooManyLies');
 var cardFN=document.getElementById('streamCardFeelNTalk');
+var eyebrow=document.querySelector('.hero-eyebrow');
 if(view==='nayike'){
 if(vid && vid.getAttribute('src')!=='cover.mp4'){ vid.setAttribute('src','cover.mp4'); vid.load&&vid.load(); playVid(vid); }
 if(vid){ vid.style.display='block'; vid.style.objectPosition='center'; }
 if(imgAlt){ imgAlt.style.display='none'; }
 if(title){ title.textContent='那一刻心动'; title.classList.add('title-cn'); }
+if(eyebrow){ eyebrow.textContent='KUN SOLO'; }
 if(sub){ sub.textContent='The Moment'; sub.style.display=''; }
 if(relStrong){ relStrong.textContent='June 20, 6PM (CST)'; }
 if(cd){ cd.style.display='none'; }
@@ -3605,6 +3607,7 @@ if(vid && vid.getAttribute('src')!==tmlSrc){ vid.setAttribute('src',tmlSrc); vid
 if(vid){ vid.style.display='block'; vid.style.objectPosition='center'; }
 if(imgAlt){ imgAlt.style.display='none'; }
 if(title){ title.textContent='Too Many Lies'; title.classList.remove('title-cn'); }
+if(eyebrow){ eyebrow.textContent='KUN SOLO'; }
 if(sub){ sub.textContent=''; sub.style.display='none'; }
 if(relStrong){ relStrong.textContent='July 18, 6PM (CST)'; }
 if(cd){ cd.style.display='none'; }
@@ -3615,6 +3618,7 @@ if(cardN) cardN.style.display='none'; if(cardF) cardF.style.display='none'; if(c
 if(vid){ vid.style.display='none'; }
 if(imgAlt){ imgAlt.style.display='block'; imgAlt.style.objectPosition='center'; }
 if(title){ title.textContent='FEEL&TALK'; title.classList.remove('title-cn'); }
+if(eyebrow){ eyebrow.textContent='KUN The 1st Digital EP'; }
 if(sub){ sub.textContent=''; sub.style.display='none'; }
 if(relStrong){ relStrong.textContent='July 18, 7PM (KST)'; }
 if(cd){ cd.style.display='none'; }
@@ -3626,6 +3630,7 @@ if(vid && vid.getAttribute('src')!=='FeelLoveandTalk.mov'){ vid.setAttribute('sr
 if(vid){ vid.style.display='block'; vid.style.objectPosition='top'; }
 if(imgAlt){ imgAlt.style.display='none'; }
 if(title){ title.textContent='Feel Love and Talk'; title.classList.remove('title-cn'); }
+if(eyebrow){ eyebrow.textContent='KUN SOLO'; }
 if(sub){ sub.textContent=''; sub.style.display='none'; }
 if(relStrong){ relStrong.textContent='July 4, 6PM (CST)'; }
 if(cd){ cd.style.display=''; }
