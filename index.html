@@ -1104,6 +1104,12 @@
     </div>
 
     <div class="release-line"><span data-i18n="releasing">Releasing</span> <strong>July 4, 6PM (CST)</strong></div>
+
+    <div class="yt-embed-wrap" id="ytEmbedFeelLove" style="display:none; margin-top:24px; width:100%; max-width:560px;">
+      <div style="position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden;">
+        <iframe src="https://www.youtube.com/embed/lhbaRdx0Hbo?si=87IhZW8dwk5GWJjx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+      </div>
+    </div>
   </div>
 
   <button class="sidebar-hamburger" id="sidebarHamburger">☰</button>
@@ -3591,6 +3597,7 @@ var cardF=document.getElementById('streamCardFeelLove');
 var cardT=document.getElementById('streamCardTooManyLies');
 var cardFN=document.getElementById('streamCardFeelNTalk');
 var eyebrow=document.querySelector('.hero-eyebrow');
+var ytEmbed=document.getElementById('ytEmbedFeelLove');
 if(view==='nayike'){
 if(vid && vid.getAttribute('src')!=='cover.mp4'){ vid.setAttribute('src','cover.mp4'); vid.load&&vid.load(); playVid(vid); }
 if(vid){ vid.style.display='block'; vid.style.objectPosition='center'; }
@@ -3602,7 +3609,7 @@ if(relStrong){ relStrong.textContent='June 20, 6PM (CST)'; }
 if(cd){ cd.style.display='none'; }
 if(done){ done.style.display='block'; }
 if(music){ music.style.display=''; }
-if(cardN) cardN.style.display=''; if(cardF) cardF.style.display='none'; if(cardT) cardT.style.display='none'; if(cardFN) cardFN.style.display='none';
+if(cardN) cardN.style.display=''; if(cardF) cardF.style.display='none'; if(cardT) cardT.style.display='none'; if(cardFN) cardFN.style.display='none'; if(ytEmbed) ytEmbed.style.display='none';
 } else if(view==='toomanylies'){
 var tmlSrc='%5BBraveDown.Com%5D%20too%20Many%20Lies%20Http%5D%20%5B1784282740%5D%20.MP4';
 if(vid && vid.getAttribute('src')!==tmlSrc){ vid.setAttribute('src',tmlSrc); vid.load&&vid.load(); playVid(vid); }
@@ -3615,7 +3622,7 @@ if(relStrong){ relStrong.textContent='July 18, 6PM (CST)'; }
 if(cd){ cd.style.display='none'; }
 if(done){ done.style.display='block'; }
 if(music){ music.style.display=''; }
-if(cardN) cardN.style.display='none'; if(cardF) cardF.style.display='none'; if(cardT) cardT.style.display=''; if(cardFN) cardFN.style.display='none';
+if(cardN) cardN.style.display='none'; if(cardF) cardF.style.display='none'; if(cardT) cardT.style.display=''; if(cardFN) cardFN.style.display='none'; if(ytEmbed) ytEmbed.style.display='none';
 } else if(view==='feelntalk'){
 if(vid){ vid.style.display='none'; }
 if(imgAlt){ imgAlt.style.display='block'; imgAlt.style.objectPosition='center'; }
@@ -3626,7 +3633,7 @@ if(relStrong){ relStrong.textContent='July 18, 7PM (KST)'; }
 if(cd){ cd.style.display='none'; }
 if(done){ done.style.display='block'; }
 if(music){ music.style.display=''; }
-if(cardN) cardN.style.display='none'; if(cardF) cardF.style.display='none'; if(cardT) cardT.style.display='none'; if(cardFN) cardFN.style.display='';
+if(cardN) cardN.style.display='none'; if(cardF) cardF.style.display='none'; if(cardT) cardT.style.display='none'; if(cardFN) cardFN.style.display=''; if(ytEmbed) ytEmbed.style.display='none';
 } else {
 if(vid && vid.getAttribute('src')!=='FeelLoveandTalk.mov'){ vid.setAttribute('src','FeelLoveandTalk.mov'); vid.load&&vid.load(); playVid(vid); }
 if(vid){ vid.style.display='block'; vid.style.objectPosition='top'; }
@@ -3638,7 +3645,7 @@ if(relStrong){ relStrong.textContent='July 4, 6PM (CST)'; }
 if(cd){ cd.style.display=''; }
 if(done){ done.style.display='none'; }
 if(music){ music.style.display=''; }
-if(cardN) cardN.style.display='none'; if(cardF) cardF.style.display=''; if(cardT) cardT.style.display='none'; if(cardFN) cardFN.style.display='none';
+if(cardN) cardN.style.display='none'; if(cardF) cardF.style.display=''; if(cardT) cardT.style.display='none'; if(cardFN) cardFN.style.display='none'; if(ytEmbed) ytEmbed.style.display='';
 }
 };
 window.__showNaYiKe = function(){
