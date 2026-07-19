@@ -3553,7 +3553,7 @@ Finalmente tocando ese latido`,
       var hero=document.querySelector('.hero'); if(!hero) return;
       if(!hero.querySelector('.hero-center')){
         var center=document.createElement('div'); center.className='hero-center';
-        var sels=['.hero-eyebrow','.cover-wrap','.hero-title','.hero-sub','.release-done','.countdown','.release-line'];
+        var sels=['.hero-eyebrow','.cover-wrap','.hero-title','.hero-sub','.release-done','.countdown','.release-line','.yt-embed-wrap'];
         sels.forEach(function(s){ var el=hero.querySelector(':scope > '+s); if(el) center.appendChild(el); });
         hero.appendChild(center);
       }
